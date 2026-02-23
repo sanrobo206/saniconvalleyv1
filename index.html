@@ -11,24 +11,6 @@
             --bambu: #00E676;
             --electric: #2979FF;
             --nuclear: #FFEA00;
-            --carbon: #080808;
-            --white: #ffffff;
-        }
-
-        * { box-sizing: border-box; margin: 0; padding: 0; }
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sanicon Valley — Interplanetary Manifesto</title>
-    <style>
-        @import url('https://fonts.googleapis.com');
-
-        :root {
-            --bambu: #00E676;
-            --electric: #2979FF;
-            --nuclear: #FFEA00;
             --carbon: #050505;
         }
 
@@ -42,7 +24,6 @@
             width: 100%;
         }
 
-        /* Fixed HUD */
         .top-nav {
             position: fixed;
             top: 0; width: 100%;
@@ -69,16 +50,16 @@
             align-items: center;
         }
 
-        /* Centered Manifesto Blocks */
+        /* Perfectly Centered Blocks */
         .block {
             position: absolute;
             width: 90%;
             max-width: 850px;
             text-align: center;
             opacity: 0;
-            transform: translateY(80px); /* Start lower */
+            transform: translateY(50px);
             pointer-events: none;
-            transition: opacity 0.4s ease, transform 0.4s ease;
+            transition: opacity 0.5s ease, transform 0.5s ease;
         }
 
         h1 {
@@ -99,7 +80,7 @@
         p {
             font-size: clamp(1rem, 1.8vw, 1.4rem);
             line-height: 1.7;
-            color: #ddd;
+            color: #efefef;
             margin-bottom: 15px;
         }
 
@@ -117,29 +98,28 @@
 
             <div class="block" id="b0">
                 <h1>Sanicon Valley</h1>
-                <p style="letter-spacing: 5px; color: var(--electric);">THE INTERPLANETARY FUTURE CITY</p>
+                <p style="letter-spacing: 5px; color: var(--electric); font-weight:900;">THE INTERPLANETARY FUTURE CITY</p>
                 <p>Welcome to <b>Sanicon Valley</b>, the one and only interplanetary future city. Far more advanced than many other cities, we blend technology with nature, repurposing waste for the greater good.</p>
             </div>
 
             <div class="block" id="b1">
                 <h2>Vertical Farming</h2>
                 <p>We repurpose <span class="highlight">shower water</span> to keep plants healthy. Every house has a vertical farm in the backyard—your own personal grocery store for agriculture.</p>
-                <p>Order fresh produce via a community app and robot delivery, ensuring zero food waste.</p>
             </div>
 
             <div class="block" id="b2">
                 <h2 class="nuclear">Nuclear Energy</h2>
-                <p>Our main energy source is <span class="nuclear">Nuclear Power</span>. Just two plants power the whole Valley, providing the massive energy needed for our AI-driven infrastructure.</p>
+                <p>One interplanetary solution is <span class="nuclear">Nuclear Power</span>. Just two plants power the whole Valley, providing the massive energy needed for AI-driven infrastructure.</p>
             </div>
 
             <div class="block" id="b3">
-                <h2>Interplanetary Solutions</h2>
-                <p>We trap CO2 for fizz drinks and oxygen conversion. Plastic-eating bacteria eliminate pollution instantly, leaving almost zero net waste.</p>
+                <h2>Waste Reclamation</h2>
+                <p>Plastic-eating bacteria eliminate pollution instantly. We trap CO2 for fizz drinks and oxygen conversion, leaving almost zero net waste.</p>
             </div>
 
             <div class="block" id="b4">
-                <h2>The Robotic Future</h2>
-                <p>Use bots to communicate and share produce instantly. Socialize in central squares designed for innovative growth. Welcome to the future of urban planning.</p>
+                <h2>The Social Matrix</h2>
+                <p>Innovative matrices of offices foster collaborative growth. Use bots to communicate and share produce instantly. Welcome to the future of urban planning.</p>
             </div>
 
         </div>
@@ -159,196 +139,17 @@
                 if (scrolled >= start && scrolled < end) {
                     let progress = (scrolled - start) / step;
                     
-                    // Smooth Fade In/Out
+                    // Smooth Reveal Animation
                     block.style.opacity = progress < 0.2 ? progress * 5 : progress > 0.8 ? (1 - progress) * 5 : 1;
                     
-                    // Smooth Rise Animation
+                    // Rise from bottom as you scroll
                     let yPos = (1 - progress) * 100 - 50; 
                     block.style.transform = `translateY(${yPos}px)`;
                     block.style.pointerEvents = "auto";
                 } else {
                     block.style.opacity = "0";
+                    block.style.transform = "translateY(50px)";
                     block.style.pointerEvents = "none";
-                }
-            });
-        });
-    </script>
-</body>
-</html>
-
-        body, html {
-            background-color: var(--carbon);
-            color: var(--white);
-            font-family: 'Inter', sans-serif;
-            overflow-x: hidden;
-            width: 100vw;
-        }
-
-        /* HUD Navigation */
-        .top-nav {
-            position: fixed;
-            top: 0; width: 100%;
-            text-align: center;
-            padding: 15px 0;
-            font-family: 'Orbitron';
-            font-size: 0.8rem;
-            letter-spacing: 5px;
-            background: rgba(0,0,0,0.9);
-            border-bottom: 2px solid var(--bambu);
-            z-index: 1000;
-        }
-
-        /* Scroll Engine - High Height for smooth transitions */
-        .scroll-container {
-            height: 14000px;
-            width: 100vw;
-            position: relative;
-        }
-
-        .viewport {
-            position: sticky;
-            top: 0;
-            height: 100vh;
-            width: 100vw;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            overflow: hidden;
-        }
-
-        /* Text Block Styling */
-        .manifesto-block {
-            position: absolute;
-            width: 80%;
-            max-width: 1000px;
-            text-align: center;
-            opacity: 0;
-            /* Start hidden to the right */
-            transform: translateX(100vw);
-            transition: opacity 0.3s ease;
-        }
-
-        h1, h2 {
-            font-family: 'Orbitron';
-            color: var(--bambu);
-            font-size: clamp(2.5rem, 6vw, 5rem);
-            margin-bottom: 30px;
-            text-shadow: 0 0 20px rgba(0, 230, 118, 0.5);
-        }
-
-        p {
-            font-size: clamp(1.1rem, 2vw, 1.6rem);
-            line-height: 1.8;
-            color: #efefef;
-            background: rgba(0,0,0,0.4);
-            padding: 20px;
-            border-radius: 10px;
-        }
-
-        .highlight { color: var(--electric); font-weight: 900; }
-        .nuclear-glow { color: var(--nuclear); text-shadow: 0 0 30px var(--nuclear); }
-
-        /* Scanning line effect background */
-        .scanline {
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
-            background-size: 100% 2px, 3px 100%;
-            pointer-events: none;
-            z-index: 500;
-        }
-    </style>
-</head>
-<body>
-
-    <div class="scanline"></div>
-    <nav class="top-nav">SANICON VALLEY // SYSTEM STATUS: ACTIVE</nav>
-
-    <div class="scroll-container">
-        <div class="viewport">
-
-            <!-- 1: TITLE -->
-            <div class="manifesto-block" id="b0">
-                <h1>Sanicon Valley</h1>
-                <h2 style="color: var(--electric); font-size: 2rem;">The Interplanetary Future City</h2>
-            </div>
-
-            <!-- 2: INTRO -->
-            <div class="manifesto-block" id="b1">
-                <p>Welcome to <b>Sanicon Valley</b>, the one and only interplanetary future city. Lies on the great city of San Jose, far more advanced than many other cities. Blending advanced technology with nature and repurposing waste for the greater good.</p>
-            </div>
-
-            <!-- 3: WATER -->
-            <div class="manifesto-block" id="b2">
-                <h2>Water Solution</h2>
-                <p>Repurposing <span class="highlight">shower water</span> to keep plants healthy. Every house features a vertical farm in the backyard, ensuring a private grocery store for every citizen.</p>
-            </div>
-
-            <!-- 4: COMMUNITY -->
-            <div class="manifesto-block" id="b3">
-                <h2>Robot Distribution</h2>
-                <p>Order fresh produce via a community app and robot delivery. Surplus notifications ensure <span class="highlight">zero food waste</span> and build the community San Jose currently lacks.</p>
-            </div>
-
-            <!-- 5: CARBON -->
-            <div class="manifesto-block" id="b4">
-                <h2>Zero Net Waste</h2>
-                <p>We trap CO2 for fizz drinks and oxygen conversion. Food waste becomes compost; cooking oil becomes soap. <span class="highlight">Plastic-eating bacteria</span> eliminate pollution instantly.</p>
-            </div>
-
-            <!-- 6: ENERGY -->
-            <div class="manifesto-block" id="b5">
-                <h2 class="nuclear-glow">Nuclear Energy</h2>
-                <p>Our interplanetary solution. Only <span class="nuclear-glow">two plants</span> power the entire valley, fueling the heavy AI infrastructure required for a futuristic society.</p>
-            </div>
-
-            <!-- 7: ZONING -->
-            <div class="manifesto-block" id="b6">
-                <h2>Zoning Laws</h2>
-                <p>Strict caps on house sizes (max 3,000 sq ft) to save space for <span class="highlight">energy plants and schools</span>. Manual labor is fully automated; humans focus on innovation.</p>
-            </div>
-
-            <!-- 8: SOCIAL -->
-            <div class="manifesto-block" id="b7">
-                <h2>Social Matrices</h2>
-                <p>Offices arranged around central squares and restaurants. Combined ideas lead to <span class="highlight">interplanetary advancement</span>. This is Sanicon Valley.</p>
-            </div>
-
-        </div>
-    </div>
-
-    <script>
-        const blocks = document.querySelectorAll('.manifesto-block');
-        const step = 1500; // Pixels per section
-
-        window.addEventListener('scroll', () => {
-            const scrolled = window.pageYOffset;
-
-            blocks.forEach((block, i) => {
-                const start = i * step;
-                const end = start + step;
-                
-                // Calculate progress within this specific section (0 to 1)
-                let sectionProgress = (scrolled - start) / step;
-
-                if (scrolled >= start && scrolled < end) {
-                    // BLOCK IS ACTIVE
-                    block.style.opacity = "1";
-                    
-                    // KINETIC ANIMATION: Fly in from Right, stay center, Fly out to Left
-                    // If progress < 0.5, slide from right to center. If > 0.5, slide center to left.
-                    let xPos;
-                    if (sectionProgress < 0.5) {
-                        xPos = (1 - (sectionProgress * 2)) * 100; // 100 to 0
-                    } else {
-                        xPos = ((sectionProgress - 0.5) * 2) * -100; // 0 to -100
-                    }
-                    
-                    block.style.transform = `translateX(${xPos}vw)`;
-                } else {
-                    // BLOCK IS INACTIVE
-                    block.style.opacity = "0";
-                    block.style.transform = `translateX(100vw)`;
                 }
             });
         });
