@@ -351,7 +351,7 @@ Our way of generating energy is one of the best ways. We do not just use one met
 <div class="img-caption">POWER_CORE // QUANTUM NUCLEAR ARRAY</div>
 </div>
 <div class="p-text reveal-on-scroll">
-A major part of the residential area is the layout of the average house. Each house will look the same as the houses in San Jose but there is a major difference. Every house will have one robot for the backyard. Another robot is optional and will be for helping with the household tasks and has the ability to communicate with other bots. Just by sitting, and without needing a phone, you can use the bot to instantly talk to anyone you want. It like having a simulated visitor. You can also instantly order the bot to tell the backyard bot to give fruits or vegetables to the person you are talking to, virtually. The backyard has a vertical farm which has an enormous variety of fruits. These fruits use the shower and wasted tap water. Also after eating the fruits, the bot takes the remaining peel and uses it as compost, or uses the seed to grow another of that kind of plant. There is no sewage system, as the toilets and the shower drain are connected to a pipe which later goes to individual plants. 
+A major part of the residential area is the layout of the average house. Each house will look the same as the houses in San Jose but there is a major difference. Every house will have one robot for the backyard. Another robot is optional and will be for helping with the household tasks and has the ability to communicate with other bots. Just by sitting, and without needing a phone, you can use the bot to instantly talk to anyone you want. It is like having a simulated visitor. You can also instantly order the bot to tell the backyard bot to give fruits or vegetables to the person you are talking to, virtually. The backyard has a vertical farm which has an enormous variety of fruits. These fruits use the shower and wasted tap water. Also after eating the fruits, the bot takes the remaining peel and uses it as compost, or uses the seed to grow another of that kind of plant. There is no sewage system, as the toilets and the shower drain are connected to a pipe which later goes to individual plants. 
 </div>
 <div class="p-text reveal-on-scroll">
 Now, this city has a very strict zoning law. All of the existing houses can stay as it is, but every new house can have a maximum area of 3,000 square feet excluding the backyard, and the backyard will have a maximum area of 1,000 square feet. The maximum height of the house is two floors, with each floor being max, 8 feet. This is because our city is trying to make every house just the minimum size needed, so that there is more space for other major infrastructure, especially space for energy plants. For the industrial zone, the maximum floors are 5 floors, each floor having a height of 10 feet along with the maximum area being 5,000 square feet. No industrial building will need more space than that. Hospitals will be really big so that more people can be treated at once reducing the wait time. The maximum area is 100,000 square feet, along with the maximum floors being 10 floors, with each floor being 10 feet high. Just 5 of these hospitals is enough to handle the whole Sanicon Valley at once. 
@@ -384,10 +384,10 @@ const scrollTotal = document.documentElement.scrollHeight - window.innerHeight;
 const currentScroll = window.pageYOffset;
 const percentage = (currentScroll / scrollTotal) * 100;
 pBar.style.width = percentage + "%";
-if (percentage > 99) 
+if (percentage > 99.5) 
 {
 hud.innerText = "MANIFESTO_COMPLETE";
-hud.style.boxShadow = "0 0 40px #fff";
+hud.style.boxShadow = "0 0 50px #fff";
 } 
 else 
 {
@@ -406,7 +406,7 @@ entry.target.classList.add("active");
 });
 }, 
 { 
-threshold: 0.2 
+threshold: 0.25 
 });
 reveals.forEach(el => revealObserver.observe(el));
 const handleImageZoom = () => 
@@ -419,9 +419,9 @@ const center = rect.top + (rect.height / 2);
 const winCenter = window.innerHeight / 2;
 const diff = center - winCenter;
 const norm = Math.max(Math.min(diff / window.innerHeight, 1), -1);
-const scaleFactor = 1.25 + (Math.abs(norm) * 0.55);
+const scaleFactor = 1.35 + (Math.abs(norm) * 0.65);
 img.style.transform = `scale(${scaleFactor})`;
-img.style.filter = `brightness(${0.35 + (1 - Math.abs(norm)) * 0.5})`;
+img.style.filter = `brightness(${0.35 + (1 - Math.abs(norm)) * 0.55})`;
 });
 };
 const updateGPSHud = () => 
@@ -429,33 +429,33 @@ const updateGPSHud = () =>
 const scroll = window.pageYOffset;
 const baseLat = 37.3382;
 const baseLon = 121.8863;
-const currentLat = (baseLat + (scroll / 500000)).toFixed(5);
-const currentLon = (baseLon + (scroll / 600000)).toFixed(5);
-const currentAlt = (scroll / 12).toFixed(2);
+const currentLat = (baseLat + (scroll / 500000)).toFixed(6);
+const currentLon = (baseLon + (scroll / 600000)).toFixed(6);
+const currentAlt = (scroll / 15).toFixed(3);
 coordHud.innerHTML = `GPS_LAT: ${currentLat} // GPS_LON: ${currentLon} // GPS_ALT: ${currentAlt}M`;
 };
 const zoningMatrixSimulation = () => 
 {
-const sectors = ["RES-A1", "IND-C4", "REC-P9", "PWR-N2", "EDU-V7", "MED-K3"];
+const sectors = ["RES-A1", "IND-C4", "REC-P9", "PWR-N2", "EDU-V7", "MED-K3", "HUB-X0"];
 const selected = sectors[Math.floor(Math.random() * sectors.length)];
-const load = (Math.random() * 100).toFixed(2);
-console.log(`[CORE] RECALIBRATING_SECTOR: ${selected} // LOAD: ${load}%`);
+const load = (Math.random() * 100).toFixed(3);
+console.log(`[CORE] RECALIBRATING_SECTOR_MATRICES: ${selected} // LOAD: ${load}%`);
 };
 const initializeCyberField = () => 
 {
 const hdr = document.querySelector('.hero-header');
-for (let i = 0; i < 80; i++) 
+for (let i = 0; i < 120; i++) 
 {
 const particle = document.createElement('div');
 particle.className = 'cyber-particle';
 particle.style.position = 'absolute';
-particle.style.width = '2px';
-particle.style.height = '2px';
+particle.style.width = '3px';
+particle.style.height = '3px';
 particle.style.background = 'var(--bambu-green)';
 particle.style.left = Math.random() * 100 + '%';
 particle.style.top = Math.random() * 100 + '%';
-particle.style.opacity = Math.random() * 0.5;
-particle.style.boxShadow = '0 0 8px var(--bambu-green)';
+particle.style.opacity = Math.random() * 0.6;
+particle.style.boxShadow = '0 0 12px var(--bambu-green)';
 particle.style.pointerEvents = 'none';
 hdr.appendChild(particle);
 }
@@ -465,27 +465,35 @@ const sendNeuralPulse = () =>
 const pulse = document.createElement('div');
 pulse.style.position = 'fixed';
 pulse.style.inset = '0';
-pulse.style.border = '2px solid var(--bambu-green)';
-pulse.style.opacity = '0.15';
+pulse.style.border = '3px solid var(--bambu-green)';
+pulse.style.opacity = '0.25';
 pulse.style.pointerEvents = 'none';
 pulse.style.zIndex = '9999';
 document.body.appendChild(pulse);
-setTimeout(() => pulse.remove(), 1200);
+setTimeout(() => pulse.remove(), 1800);
 };
 const atmosphericScrubberTick = () => 
 {
-const co2 = (400 - (window.pageYOffset / 100)).toFixed(2);
-const quality = co2 < 350 ? "OPTIMAL" : "STABILIZING";
-if(window.pageYOffset % 100 === 0) 
+const co2 = (405 - (window.pageYOffset / 120)).toFixed(3);
+const quality = co2 < 340 ? "IDEAL" : "STABILIZING";
+if(window.pageYOffset % 120 === 0) 
 {
-console.info(`[SCRUBBER] CO2_LEVEL: ${co2}PPM // STATUS: ${quality}`);
+console.info(`[AIR_ENGINE] CO2_CAPACITY: ${co2}PPM // ATMOS: ${quality}`);
 }
 };
 const wasteToEnergyCalculation = () => 
 {
-const wasteTons = (Math.random() * 50).toFixed(2);
-const energyKwh = (wasteTons * 450).toFixed(2);
-console.debug(`[CONVERSION] WASTE_INPUT: ${wasteTons}T // ENERGY_OUTPUT: ${energyKwh}KWh`);
+const wasteInput = (Math.random() * 75).toFixed(3);
+const powerOutput = (wasteInput * 485).toFixed(3);
+console.debug(`[CONVERSION_REACTOR] INPUT: ${wasteInput}T // OUTPUT: ${powerOutput}KWh`);
+};
+const zoningValidator = () => 
+{
+const resLimit = 3000;
+const hospitalLimit = 100000;
+const currentDensity = 0.85;
+const compliance = currentDensity < 0.90 ? "SECURE" : "WARNING";
+console.log(`[ZONING_CORE] COMPLIANCE: ${compliance} // DENSITY_INDEX: ${currentDensity}`);
 };
 const handleGlobalEvents = () => 
 {
@@ -493,28 +501,29 @@ handleScrollProgress();
 handleImageZoom();
 updateGPSHud();
 atmosphericScrubberTick();
+zoningValidator();
 };
 window.addEventListener("scroll", handleGlobalEvents);
 window.addEventListener("load", () => 
 {
 initializeCyberField();
 handleGlobalEvents();
-console.log("SANICON_VALLEY_ENGINE_STABLE_LOADED");
-setInterval(zoningMatrixSimulation, 12000);
-setInterval(sendNeuralPulse, 10000);
-setInterval(wasteToEnergyCalculation, 25000);
+console.log("SANICON_VALLEY_STABLE_SYSTEM_LOADED_CORE_STABLE");
+setInterval(zoningMatrixSimulation, 15000);
+setInterval(sendNeuralPulse, 12000);
+setInterval(wasteToEnergyCalculation, 30000);
 });
 const smoothIntro = () => 
 {
 const mainTitle = document.querySelector(".hero-title");
 mainTitle.style.opacity = "0";
-mainTitle.style.transform = "translateY(80px) scale(0.9)";
+mainTitle.style.transform = "translateY(100px) scale(0.85)";
 setTimeout(() => 
 {
-mainTitle.style.transition = "all 3.5s cubic-bezier(0.15, 1, 0.15, 1)";
+mainTitle.style.transition = "all 4s cubic-bezier(0.1, 1, 0.1, 1)";
 mainTitle.style.opacity = "1";
 mainTitle.style.transform = "translateY(0) scale(1)";
-}, 600);
+}, 800);
 };
 smoothIntro();
 const checkScrollVelocity = () => 
@@ -524,7 +533,7 @@ window.addEventListener("scroll", () =>
 {
 let currPos = window.pageYOffset;
 let velocity = Math.abs(currPos - prevPos);
-hud.style.letterSpacing = (6 + (velocity / 8)) + "px";
+hud.style.letterSpacing = (8 + (velocity / 6)) + "px";
 prevPos = currPos;
 });
 };
@@ -534,24 +543,24 @@ const applyParallaxBackdrop = () =>
 window.addEventListener("scroll", () => 
 {
 const s = window.pageYOffset;
-document.querySelector(".hero-header").style.backgroundPositionY = -(s * 0.6) + "px";
+document.querySelector(".hero-header").style.backgroundPositionY = -(s * 0.75) + "px";
 });
 };
 applyParallaxBackdrop();
 const lockInterfaceCore = () => 
 {
-const status = "MANIFESTO_DEPLOYED";
-document.title = "Sanicon // " + status;
-console.info("CORE_INTERFACE_LOCKED: " + status);
+const status = "MANIFESTO_DEPLOYED_STABLE";
+document.title = "Sanicon Valley // " + status;
+console.info("CORE_INTERFACE_SECURE: " + status);
 };
 lockInterfaceCore();
 const initHardwareAcceleration = () => 
 {
-const targets = document.querySelectorAll(".zoom-frame, .hero-header, .stat-item, .p-text");
+const targets = document.querySelectorAll(".zoom-frame, .hero-header, .stat-item, .p-text, footer");
 targets.forEach(t => 
 {
 t.style.backfaceVisibility = "hidden";
-t.style.perspective = "1500px";
+t.style.perspective = "2000px";
 t.style.transform = "translate3d(0,0,0)";
 });
 };
@@ -562,7 +571,8 @@ const resLimit = 3000;
 const backLimit = 1000;
 const indLimit = 5000;
 const medLimit = 100000;
-console.debug(`[ZONING] RES: ${resLimit}, BACK: ${backLimit}, IND: ${indLimit}, MED: ${medLimit}`);
+const totalHospitals = 5;
+console.debug(`[ZONING_LIMITS] R: ${resLimit}, B: ${backLimit}, I: ${indLimit}, M: ${medLimit}, H: ${totalHospitals}`);
 };
 monitorZoningLimits();
 const setGlowInteractions = () => 
@@ -573,8 +583,8 @@ highlights.forEach(h =>
 h.addEventListener("mouseenter", () => 
 {
 h.style.color = "var(--bambu-green)";
-h.style.textShadow = "0 0 25px var(--bambu-green)";
-h.style.transition = "all 0.3s ease";
+h.style.textShadow = "0 0 35px var(--bambu-green)";
+h.style.transition = "all 0.4s ease";
 });
 h.addEventListener("mouseleave", () => 
 {
@@ -586,74 +596,259 @@ h.style.textShadow = "none";
 setGlowInteractions();
 const runNeuralDiagnostic = () => 
 {
-const t = performance.now().toFixed(4);
-console.log(`[DIAGNOSTIC] NEURAL_STABILITY_AT: ${t}ms`);
+const t = performance.now().toFixed(6);
+console.log(`[NEURAL_DIAGNOSTIC] STABILITY_TIMESTAMP: ${t}ms`);
 };
 runNeuralDiagnostic();
 const generateCoreSessionID = () => 
 {
-const id = "SV_CORE_INTERPLANETARY_" + Date.now().toString(16).toUpperCase();
-sessionStorage.setItem("sv_session", id);
-console.log("AUTHORIZED_SESSION_ID: " + id);
+const id = "SV_CORE_INTERPLANETARY_HUB_" + Date.now().toString(16).toUpperCase();
+sessionStorage.setItem("sv_session_link", id);
+console.log("AUTHORIZED_CORE_SESSION_ID: " + id);
 };
 generateCoreSessionID();
 const verifyAtmosphericPurge = () => 
 {
-const o2 = 21.08;
-const nitrogen = 78.01;
-const scrubbers = "ACTIVE_MAX_POWER";
-console.info(`[AIR_CORE] O2: ${o2}%, N: ${nitrogen}%, STATUS: ${scrubbers}`);
+const o2 = 21.12;
+const nitrogen = 78.04;
+const argon = 0.84;
+const scrubbers = "PEAK_ACTIVE_STABLE";
+console.info(`[AIR_QUALITY_CORE] O2: ${o2}%, N: ${nitrogen}%, AR: ${argon}%, STATUS: ${scrubbers}`);
 };
 verifyAtmosphericPurge();
 const triggerRecalculation = () => 
 {
 window.dispatchEvent(new Event('resize'));
-console.log("[WINDOW] LAYOUT_RECALCULATED");
+console.log("[CORE_INTERFACE] LAYOUT_RECALCULATED_STABLE");
 };
-setTimeout(triggerRecalculation, 2500);
+setTimeout(triggerRecalculation, 3000);
 const setupInterfaceCleanup = () => 
 {
 window.addEventListener("beforeunload", () => 
 {
 revealObserver.disconnect();
-console.warn("CORE_LINK_TERMINATED // DATA_CACHED");
+console.warn("CORE_LINK_TERMINATED // ALL_DATA_SECURED");
 });
 };
 setupInterfaceCleanup();
 const logCommunityMesh = () => 
 {
 const cohesion = 100.00;
-const empathy = 98.4;
-console.log(`[MESH] COHESION: ${cohesion}%, EMPATHY_INDEX: ${empathy}%`);
+const empathy = 99.12;
+const communicationLoad = 45.8;
+console.log(`[SOCIAL_MESH] COHESION: ${cohesion}%, EMPATHY: ${empathy}%, LOAD: ${communicationLoad}%`);
 };
 logCommunityMesh();
 const probeMarsLatency = () => 
 {
-const l = Math.floor(Math.random() * 12) + 2;
-console.log(`[NETWORK] MARS_LATENCY: ${l}ms`);
+const l = Math.floor(Math.random() * 10) + 1;
+console.log(`[NETWORK_RELAY] INTERPLANETARY_LATENCY: ${l}ms`);
 };
 probeMarsLatency();
 const auditRenderTree = () => 
 {
 const nodes = document.querySelectorAll('*').length;
-console.log(`[RENDER] DOM_NODES: ${nodes}`);
+console.log(`[RENDER_AUDIT] TOTAL_ACTIVE_NODES: ${nodes}`);
 };
 auditRenderTree();
 const markSystemReady = () => 
 {
-console.log("---------------------------------------");
-console.log("SANICON VALLEY ENGINE - CORE V1.0 READY");
-console.log("---------------------------------------");
+console.log("-------------------------------------------");
+console.log("SANICON VALLEY ENGINE - CORE V4.0 DEPLOYED");
+console.log("-------------------------------------------");
 };
 markSystemReady();
 const injectScrollSnapFix = () => 
 {
 const s = document.createElement('style');
-s.innerHTML = '.p-text { scroll-margin-top: 100px; }';
+s.innerHTML = '.p-text { scroll-margin-top: 150px; }';
 document.head.appendChild(s);
 };
 injectScrollSnapFix();
-const initBioWasteAnalysis = () => 
+const simulateGridStabilization = () => 
 {
-const compostRating = 94.5;
-console.log(`[
+const grid = document.querySelector('.tech-bg-grid');
+grid.style.transition = 'opacity 8s ease-in-out';
+grid.style.opacity = '0.65';
+};
+setTimeout(simulateGridStabilization, 4000);
+const registerKeyInputs = () => 
+{
+window.addEventListener('keydown', (e) => 
+{
+if(e.key === 'f') console.log("[INTERFACE_CORE] FOCUS_MODE_ACTIVATED");
+if(e.key === 's') console.log("[INTERFACE_CORE] SYSTEM_SNAPSHOT_CAPTURED");
+});
+};
+registerKeyInputs();
+const checkHospitalThroughput = () => 
+{
+const capacity = 100000;
+const totalHospitals = 5;
+const totalCapacity = capacity * totalHospitals;
+console.log(`[HOSPITAL_ENGINE] TOTAL_PATIENT_CAPACITY: ${totalCapacity}`);
+};
+checkHospitalThroughput();
+const calculateSchoolSpace = () => 
+{
+const zoningBenefit = "UNIVERSAL_EDUCATION_ACCESS";
+console.log(`[ZONING_CORE] SCHOOL_ALLOCATION_STATUS: ${zoningBenefit}`);
+};
+calculateSchoolSpace();
+const defineOfficeSocialization = () => 
+{
+const rectLayout = "DYNAMIC_SOCIAL_RECTANGLE";
+console.log(`[URBAN_PLANNING] OFFICE_PLACEMENT_LOGIC: ${rectLayout}`);
+};
+defineOfficeSocialization();
+const finalizeEngineState = () => 
+{
+const state = "LIVE_SECURE";
+console.info(`[SYSTEM_STATUS] ENGINE_RUNTIME_STATE: ${state}`);
+};
+finalizeEngineState();
+const runBioWasteAudit = () => 
+{
+const compostEfficiency = 98.2;
+const cleanOilRecovery = 95.6;
+console.log(`[BIO_RECOVERY] COMPOST_EFF: ${compostEfficiency}%, OIL_RECOVERY: ${cleanOilRecovery}%`);
+};
+runBioWasteAudit();
+const checkTransportationGrid = () => 
+{
+const busFreq = "REAL_TIME";
+const autoEfficiency = 100.00;
+console.log(`[TRANS_GRID] BUS_FREQ: ${busFreq}, AUTO_EFF: ${autoEfficiency}%`);
+};
+checkTransportationGrid();
+const runNuclearSafetyCheck = () => 
+{
+const coreTemp = 850;
+const coolingStatus = "NOMINAL";
+console.info(`[NUCLEAR_SAFETY] CORE_TEMP: ${coreTemp}K, COOLING: ${coolingStatus}`);
+};
+runNuclearSafetyCheck();
+const validateBackyardRobots = () => 
+{
+const totalUnits = 1000000;
+const commRate = "10ms";
+console.log(`[ROBOT_MESH] UNITS: ${totalUnits}, COMM_LATENCY: ${commRate}`);
+};
+validateBackyardRobots();
+const finalizeInterplanetaryProtocol = () => 
+{
+const protocol = "IP_ALPHA_001";
+console.info(`[PROTOCOL] ACTIVE_HANDSHAKE: ${protocol}`);
+};
+finalizeInterplanetaryProtocol();
+const monitorCarbonTrapping = () => 
+{
+const trapRate = "MAX";
+const dryIceOutput = (Math.random() * 100).toFixed(2);
+console.log(`[CARBON_CORE] TRAP_RATE: ${trapRate}, DRY_ICE_T: ${dryIceOutput}`);
+};
+monitorCarbonTrapping();
+const broadcastCommunityUpdates = () => 
+{
+const update = "SOCIAL_COHESION_STABLE";
+console.log(`[BROADCAST] ${update}`);
+};
+broadcastCommunityUpdates();
+const verifyPlasticBacteria = () => 
+{
+const decompRate = "IMMEDIATE";
+const wasteNet = 0;
+console.info(`[BIO_MESH] DECOMP: ${decompRate}, NET_WASTE: ${wasteNet}`);
+};
+verifyPlasticBacteria();
+const checkAgriculturalApp = () => 
+{
+const status = "ONLINE";
+console.log(`[AGRICULTURE_APP] STATUS: ${status}`);
+};
+checkAgriculturalApp();
+const measureIndustrialArea = () => 
+{
+const maxArea = 5000;
+const maxFloors = 5;
+console.log(`[INDUSTRY] AREA: ${maxArea}sqft, FLOORS: ${maxFloors}`);
+};
+measureIndustrialArea();
+const monitorParkDistribution = () => 
+{
+const parks = "SUFFICIENT";
+console.log(`[URBAN] PARK_SPACE: ${parks}`);
+};
+monitorParkDistribution();
+const analyzeRobotInteractions = () => 
+{
+const empathyIndex = "HIGH";
+console.log(`[SOCIAL] ROBOT_HUMAN_INTERFACE: ${empathyIndex}`);
+};
+analyzeRobotInteractions();
+const runDryIceLog = () => 
+{
+const output = "STABLE";
+console.log(`[CARBON] DRY_ICE_OUTPUT: ${output}`);
+};
+runDryIceLog();
+const checkNuclearCoreSymmetry = () => 
+{
+const symmetry = "STABLE";
+console.log(`[ENERGY] CORE_SYMMETRY: ${symmetry}`);
+};
+checkNuclearCoreSymmetry();
+const monitorHydroelectricLoad = () => 
+{
+const load = "BALANCED";
+console.log(`[ENERGY] HYDRO_LOAD: ${load}`);
+};
+monitorHydroelectricLoad();
+const scanWindTurbineVectors = () => 
+{
+const vectors = "OPTIMAL";
+console.log(`[ENERGY] WIND_VECTORS: ${vectors}`);
+};
+scanWindTurbineVectors();
+const auditEducationalAccess = () => 
+{
+const access = 100.00;
+console.log(`[EDUCATION] UNIVERSAL_ACCESS_INDEX: ${access}%`);
+};
+auditEducationalAccess();
+const runFinalInterfaceSync = () => 
+{
+const sync = "SUCCESS";
+console.log(`[ENGINE] FINAL_SYNC: ${sync}`);
+};
+runFinalInterfaceSync();
+const finalizeWasteLog = () => 
+{
+const wasteMetric = "ZERO_NET";
+console.info(`[ENVIRONMENT] GLOBAL_WASTE_METRIC: ${wasteMetric}`);
+};
+finalizeWasteLog();
+const checkHydroEfficiency = () => 
+{
+const efficiency = 99.8;
+console.log(`[ENERGY] HYDRO_EFFICIENCY: ${efficiency}%`);
+};
+checkHydroEfficiency();
+const monitorVerticalFarms = () => 
+{
+const yield = "MAXIMUM";
+console.log(`[AGRICULTURE] BACKYARD_YIELD_INDEX: ${yield}`);
+};
+monitorVerticalFarms();
+const runNeuralBufferClean = () => 
+{
+const bufferStatus = "CLEAN";
+console.log(`[SYSTEM] NEURAL_BUFFER: ${bufferStatus}`);
+};
+runNeuralBufferClean();
+const markEndOfManifesto = () => 
+{
+console.log("### SANICON_VALLEY_ENGINE_EOF ###");
+};
+markEndOfManifesto();
+</script>
