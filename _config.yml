@@ -1,4 +1,5 @@
-title: Sanicon Valley v.1
-baseurl: "/saniconvalleyv1"
-url: "https://sanrobo206.github.io"
-theme: minima
+# Minimal config to prevent theme interference
+title: Sanicon Valley
+baseurl: "" 
+url: "https://yourusername.github.io"
+# No theme line here
