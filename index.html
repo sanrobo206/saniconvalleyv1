@@ -11,7 +11,7 @@
             --bambu: #00E676;
             --electric: #2979FF;
             --nuclear: #FFEA00;
-            --carbon: #000000;
+            --carbon: #080808;
             --white: #ffffff;
         }
 
@@ -25,27 +25,28 @@
             width: 100vw;
         }
 
+        /* HUD Navigation */
         .top-nav {
             position: fixed;
             top: 0; width: 100%;
             text-align: center;
-            padding: 20px 0;
+            padding: 15px 0;
             font-family: 'Orbitron';
             font-size: 0.8rem;
-            letter-spacing: 4px;
-            background: rgba(0,0,0,0.85);
-            backdrop-filter: blur(10px);
-            border-bottom: 1px solid #222;
+            letter-spacing: 5px;
+            background: rgba(0,0,0,0.9);
+            border-bottom: 2px solid var(--bambu);
             z-index: 1000;
         }
 
-        .scroll-space {
-            height: 18000px; /* Long scroll for all text sections */
+        /* Scroll Engine - High Height for smooth transitions */
+        .scroll-container {
+            height: 14000px;
             width: 100vw;
             position: relative;
         }
 
-        .sticky-scene {
+        .viewport {
             position: sticky;
             top: 0;
             height: 100vh;
@@ -53,144 +54,143 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            perspective: 1200px;
             overflow: hidden;
         }
 
-        .gate {
+        /* Text Block Styling */
+        .manifesto-block {
             position: absolute;
-            width: 85%;
-            max-width: 900px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
+            width: 80%;
+            max-width: 1000px;
             text-align: center;
             opacity: 0;
-            transform: translateZ(-1500px);
-            pointer-events: none;
-            transition: opacity 0.1s ease-out;
+            /* Start hidden to the right */
+            transform: translateX(100vw);
+            transition: opacity 0.3s ease;
         }
 
-        .gate h1, .gate h2 {
+        h1, h2 {
             font-family: 'Orbitron';
             color: var(--bambu);
-            margin-bottom: 20px;
-            text-transform: uppercase;
+            font-size: clamp(2.5rem, 6vw, 5rem);
+            margin-bottom: 30px;
+            text-shadow: 0 0 20px rgba(0, 230, 118, 0.5);
         }
 
-        .gate p {
-            font-size: clamp(1rem, 1.8vw, 1.5rem);
-            line-height: 1.6;
-            color: #ddd;
-            margin-bottom: 15px;
+        p {
+            font-size: clamp(1.1rem, 2vw, 1.6rem);
+            line-height: 1.8;
+            color: #efefef;
+            background: rgba(0,0,0,0.4);
+            padding: 20px;
+            border-radius: 10px;
         }
 
         .highlight { color: var(--electric); font-weight: 900; }
-        .nuke { color: var(--nuclear); text-shadow: 0 0 20px var(--nuclear); }
+        .nuclear-glow { color: var(--nuclear); text-shadow: 0 0 30px var(--nuclear); }
 
-        footer {
-            padding: 40px; text-align: center; font-family: 'Orbitron'; color: #444; font-size: 0.7rem;
+        /* Scanning line effect background */
+        .scanline {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
+            background-size: 100% 2px, 3px 100%;
+            pointer-events: none;
+            z-index: 500;
         }
     </style>
 </head>
 <body>
 
-    <nav class="top-nav">SANICON VALLEY // CORE DISPATCH</nav>
+    <div class="scanline"></div>
+    <nav class="top-nav">SANICON VALLEY // SYSTEM STATUS: ACTIVE</nav>
 
-    <div class="scroll-space">
-        <div class="sticky-scene">
+    <div class="scroll-container">
+        <div class="viewport">
 
-            <!-- GATE 0 -->
-            <div class="gate" id="g0">
-                <h1 style="font-size: 8vw;">Sanicon Valley</h1>
-                <p style="letter-spacing: 8px; color: var(--electric);">THE INTERPLANETARY FUTURE CITY</p>
+            <!-- 1: TITLE -->
+            <div class="manifesto-block" id="b0">
+                <h1>Sanicon Valley</h1>
+                <h2 style="color: var(--electric); font-size: 2rem;">The Interplanetary Future City</h2>
             </div>
 
-            <!-- GATE 1 -->
-            <div class="gate" id="g1">
-                <p>Welcome to <b>Sanicon Valley</b>, the one and only interplanetary future city, that lies on the great city of San Jose, far more advanced than many other cities in the world. Our city blends advanced technology, with nature, and repurposing waste for the greater good.</p>
-                <p>Sanicon Valley is home to more than 1,000,000 residents, as it is the hub of social, economic, and technological advancement.</p>
+            <!-- 2: INTRO -->
+            <div class="manifesto-block" id="b1">
+                <p>Welcome to <b>Sanicon Valley</b>, the one and only interplanetary future city. Lies on the great city of San Jose, far more advanced than many other cities. Blending advanced technology with nature and repurposing waste for the greater good.</p>
             </div>
 
-            <!-- GATE 2 -->
-            <div class="gate" id="g2">
-                <p>Our city uses advanced technology to repurpose all kinds of waste to useful nutrients, energy, fuel, and more. We keep our city as simple as possible as we fix the major problem which has never been solved for decades in San Jose, which is to improve our <span class="highlight">farm to table system</span>.</p>
+            <!-- 3: WATER -->
+            <div class="manifesto-block" id="b2">
+                <h2>Water Solution</h2>
+                <p>Repurposing <span class="highlight">shower water</span> to keep plants healthy. Every house features a vertical farm in the backyard, ensuring a private grocery store for every citizen.</p>
             </div>
 
-            <!-- GATE 3 -->
-            <div class="gate" id="g3">
-                <h2>Water & Vertical Farming</h2>
-                <p>A major problem is the extreme water shortage in San Jose. We will repurpose <span class="highlight">shower water</span> which can be used to water the plants. Every house has a vertical farm in their backyard, ensuring everyone has a private grocery store.</p>
+            <!-- 4: COMMUNITY -->
+            <div class="manifesto-block" id="b3">
+                <h2>Robot Distribution</h2>
+                <p>Order fresh produce via a community app and robot delivery. Surplus notifications ensure <span class="highlight">zero food waste</span> and build the community San Jose currently lacks.</p>
             </div>
 
-            <!-- GATE 4 -->
-            <div class="gate" id="g4">
-                <h2>The Community App</h2>
-                <p>Everyone will have an app to order a robot for fresh produce. Surplus fruits/vegetables trigger community notifications, ensuring no food is wasted and even the poor are provided for. This builds a strong community which San Jose currently lacks.</p>
+            <!-- 5: CARBON -->
+            <div class="manifesto-block" id="b4">
+                <h2>Zero Net Waste</h2>
+                <p>We trap CO2 for fizz drinks and oxygen conversion. Food waste becomes compost; cooking oil becomes soap. <span class="highlight">Plastic-eating bacteria</span> eliminate pollution instantly.</p>
             </div>
 
-            <!-- GATE 5 -->
-            <div class="gate" id="g5">
-                <h2>Interplanetary Solutions</h2>
-                <p>Our city has little to no carbon footprint. We trap CO2 for fizz drinks, dry ice, and oxygen conversion. We use food waste as compost and cooking oil for soaps. Remaining waste becomes <span class="highlight">biogas</span> for cars.</p>
+            <!-- 6: ENERGY -->
+            <div class="manifesto-block" id="b5">
+                <h2 class="nuclear-glow">Nuclear Energy</h2>
+                <p>Our interplanetary solution. Only <span class="nuclear-glow">two plants</span> power the entire valley, fueling the heavy AI infrastructure required for a futuristic society.</p>
             </div>
 
-            <!-- GATE 6 -->
-            <div class="gate" id="g6">
-                <h2>Zoning & Space</h2>
-                <p>There will be no supermarkets for produce, only meat, snacks, and drinks. This creates more space for recreational areas. Since every backyard is a farm, we have more room for industrial areas, schools, and parks.</p>
+            <!-- 7: ZONING -->
+            <div class="manifesto-block" id="b6">
+                <h2>Zoning Laws</h2>
+                <p>Strict caps on house sizes (max 3,000 sq ft) to save space for <span class="highlight">energy plants and schools</span>. Manual labor is fully automated; humans focus on innovation.</p>
             </div>
 
-            <!-- GATE 7 -->
-            <div class="gate" id="g7">
-                <h2>Plastic & Innovation</h2>
-                <p>We still use plastic, but with a twist: bins containing <span class="highlight">plastic-eating bacteria</span>. This allows for immediate decomposition, meaning practically zero plastic waste in our environment.</p>
-            </div>
-
-            <!-- GATE 8 -->
-            <div class="gate" id="g8">
-                <h2 class="nuke">Nuclear Power</h2>
-                <p>Our main energy source is <span class="nuke">Nuclear Energy</span>. Only two plants power the entire Sanicon Valley, providing the massive energy required for our AI-driven infrastructure.</p>
-            </div>
-
-            <!-- GATE 9 -->
-            <div class="gate" id="g9">
-                <h2>The Robotic Home</h2>
-                <p>Every house has a backyard bot. An optional household bot acts as a "simulated visitor," allowing you to communicate and share produce with others instantly, without even needing a phone.</p>
-            </div>
-
-            <!-- GATE 10 -->
-            <div class="gate" id="g10">
-                <h2>Socialization & Layout</h2>
-                <p>Offices are arranged in matrices around central squares filled with restaurants. This encourages business owners and citizens to combine ideas, fostering the ultimate collaborative environment.</p>
+            <!-- 8: SOCIAL -->
+            <div class="manifesto-block" id="b7">
+                <h2>Social Matrices</h2>
+                <p>Offices arranged around central squares and restaurants. Combined ideas lead to <span class="highlight">interplanetary advancement</span>. This is Sanicon Valley.</p>
             </div>
 
         </div>
     </div>
 
-    <footer>SANICON VALLEY // END OF MANIFESTO</footer>
-
     <script>
-        const gates = document.querySelectorAll('.gate');
-        const step = 1500; // Distance between gates in pixels
+        const blocks = document.querySelectorAll('.manifesto-block');
+        const step = 1500; // Pixels per section
 
         window.addEventListener('scroll', () => {
             const scrolled = window.pageYOffset;
 
-            gates.forEach((gate, i) => {
-                const center = i * step;
-                const distance = scrolled - center;
+            blocks.forEach((block, i) => {
+                const start = i * step;
+                const end = start + step;
                 
-                // Fly-through effect
-                // translateZ goes from negative (far) to positive (past camera)
-                const zDist = (distance / step) * 2500; 
-                const opacity = 1 - Math.abs(distance / (step / 1.5));
+                // Calculate progress within this specific section (0 to 1)
+                let sectionProgress = (scrolled - start) / step;
 
-                gate.style.transform = `translateZ(${zDist}px)`;
-                gate.style.opacity = opacity > 0 ? opacity : 0;
-
-                // Disable interaction if not visible
-                gate.style.pointerEvents = opacity > 0.5 ? "auto" : "none";
+                if (scrolled >= start && scrolled < end) {
+                    // BLOCK IS ACTIVE
+                    block.style.opacity = "1";
+                    
+                    // KINETIC ANIMATION: Fly in from Right, stay center, Fly out to Left
+                    // If progress < 0.5, slide from right to center. If > 0.5, slide center to left.
+                    let xPos;
+                    if (sectionProgress < 0.5) {
+                        xPos = (1 - (sectionProgress * 2)) * 100; // 100 to 0
+                    } else {
+                        xPos = ((sectionProgress - 0.5) * 2) * -100; // 0 to -100
+                    }
+                    
+                    block.style.transform = `translateX(${xPos}vw)`;
+                } else {
+                    // BLOCK IS INACTIVE
+                    block.style.opacity = "0";
+                    block.style.transform = `translateX(100vw)`;
+                }
             });
         });
     </script>
