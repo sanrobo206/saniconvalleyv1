@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sanicon Valley — Full Interplanetary Manifesto</title>
+    <title>Sanicon Valley — Ultimate Centered Manifesto</title>
     <style>
         @import url('https://fonts.googleapis.com');
 
@@ -11,25 +11,27 @@
             --bambu: #00E676;
             --electric: #2979FF;
             --nuclear: #FFEA00;
-            --waste: #FF3D00;
             --carbon: #000000;
             --white: #ffffff;
+            /* High-Intensity Glow Variable */
+            --nuclear-glow: 0 0 30px #FFEA00, 0 0 60px #FFEA00;
         }
 
-        * { box-sizing: border-box; }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
 
         body, html {
-            margin: 0;
-            padding: 0;
             background-color: var(--carbon);
             color: var(--white);
             font-family: 'Inter', sans-serif;
             overflow-x: hidden;
-            scroll-behavior: smooth;
+            width: 100vw;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
         }
 
-        /* --- 1. FULL PAGE HERO --- */
-        .hero-section {
+        /* --- 1. HERO SECTION (CENTERED) --- */
+        .hero {
             height: 100vh;
             width: 100vw;
             display: flex;
@@ -40,30 +42,27 @@
             background: radial-gradient(circle at center, #111 0%, #000 100%);
         }
 
-        .hero-section h1 {
+        .hero h1 {
             font-family: 'Orbitron', sans-serif;
             font-size: clamp(3rem, 15vw, 10rem);
-            margin: 0;
             background: linear-gradient(90deg, var(--bambu), var(--electric), var(--nuclear));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            filter: drop-shadow(0 0 40px rgba(0, 230, 118, 0.4));
+            filter: drop-shadow(0 0 50px rgba(0, 230, 118, 0.5));
+            animation: pulse-glow 3s infinite ease-in-out;
         }
 
-        .hero-section p {
-            letter-spacing: 20px;
-            text-transform: uppercase;
-            color: var(--electric);
-            font-weight: 900;
-            margin-top: 20px;
-            opacity: 0.8;
+        @keyframes pulse-glow {
+            0% { filter: drop-shadow(0 0 20px rgba(0, 230, 118, 0.3)); }
+            50% { filter: drop-shadow(0 0 60px rgba(0, 230, 118, 0.7)); }
+            100% { filter: drop-shadow(0 0 20px rgba(0, 230, 118, 0.3)); }
         }
 
-        /* --- 2. FULL VIEWPORT ZOOM ENGINE --- */
+        /* --- 2. THE ZOOM ENGINE --- */
         .zoom-engine {
             height: 400vh;
-            position: relative;
             width: 100vw;
+            position: relative;
         }
 
         .sticky-wrapper {
@@ -74,32 +73,34 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            overflow: hidden;
             background: #000;
         }
 
-        .full-page-diagram {
-            width: 100vw;
-            height: 100vh;
+        .full-svg {
+            width: 100%;
+            height: 100%;
             transform: scale(1);
             transition: transform 0.1s linear, opacity 0.2s linear;
         }
 
-        /* --- 3. MANIFESTO CONTENT --- */
+        /* --- 3. MANIFESTO CONTENT (MAX CENTERING) --- */
         .manifesto-body {
-            padding: 100px 10%;
+            padding: 100px 5%;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
             background: var(--carbon);
-            position: relative;
-            z-index: 100;
-            width: 100vw;
         }
 
         .text-block {
-            max-width: 1200px;
-            margin: 0 auto 250px auto;
+            width: 100%;
+            max-width: 1100px;
+            margin-bottom: 350px;
             opacity: 0;
-            transform: translateY(80px);
+            transform: translateY(100px);
             transition: all 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+            text-align: center;
         }
 
         .text-block.active {
@@ -109,144 +110,107 @@
 
         .text-block h2 {
             font-family: 'Orbitron';
-            font-size: 3.5rem;
+            font-size: clamp(2rem, 5vw, 4rem);
             margin-bottom: 40px;
             color: var(--bambu);
-            border-left: 20px solid var(--electric);
-            padding-left: 30px;
+            display: inline-block;
+            padding-bottom: 10px;
+            border-bottom: 5px solid var(--electric);
+        }
+
+        .nuclear-header {
+            color: var(--nuclear) !important;
+            text-shadow: var(--nuclear-glow);
+            border-bottom: 5px solid var(--nuclear) !important;
+            animation: nuclear-pulse 2s infinite ease-in-out;
+        }
+
+        @keyframes nuclear-pulse {
+            0% { text-shadow: 0 0 20px #FFEA00; }
+            50% { text-shadow: 0 0 50px #FFEA00, 0 0 80px #FFEA00; }
+            100% { text-shadow: 0 0 20px #FFEA00; }
         }
 
         .text-block p {
-            font-size: 1.8rem;
-            line-height: 1.8;
+            font-size: clamp(1.2rem, 2.2vw, 1.9rem);
+            line-height: 1.9;
             color: #ddd;
-            text-align: justify;
             margin-bottom: 2rem;
+            text-align: center;
         }
 
         .highlight { color: var(--electric); font-weight: 900; }
-        .nuclear-glow { color: var(--nuclear); font-weight: 900; text-shadow: 0 0 15px var(--nuclear); }
 
         footer {
             padding: 100px;
+            width: 100%;
             text-align: center;
             border-top: 1px solid #222;
             font-family: 'Orbitron';
-            letter-spacing: 10px;
-            color: #333;
+            letter-spacing: 12px;
+            color: #444;
         }
     </style>
 </head>
 <body>
 
-    <section class="hero-section">
-        <p>SYSTEM_LINK // INTERPLANETARY</p>
+    <section class="hero">
+        <p style="letter-spacing: 15px; color: var(--electric); font-weight: 900;">SYSTEM_LINK // INTERPLANETARY</p>
         <h1>SANICON VALLEY</h1>
-        <p>THE FUTURE OF SAN JOSE</p>
+        <p style="letter-spacing: 12px; color: var(--white); opacity: 0.8; margin-top: 15px;">SAN JOSE REIMAGINED</p>
     </section>
 
-    <!-- ZOOM ENGINE: CITY MATRIX -->
+    <!-- CITY MATRIX ZOOM -->
     <div class="zoom-engine" id="cityZoom">
         <div class="sticky-wrapper">
-            <svg id="cityDiagram" class="full-page-diagram" viewBox="0 0 1200 800" xmlns="http://www.w3.org">
+            <svg id="cityDiagram" class="full-svg" viewBox="0 0 1200 800" xmlns="http://www.w3.org">
                 <rect width="1200" height="800" fill="#000" />
-                <!-- Nuclear Hubs -->
-                <rect x="50" y="50" width="150" height="150" fill="none" stroke="var(--nuclear)" stroke-width="4" />
-                <circle cx="125" cy="125" r="15" fill="var(--nuclear)" />
-                <text x="50" y="40" fill="var(--nuclear)" font-family="Orbitron" font-size="16">NORTH_PLANT_ALPHA</text>
-                
-                <rect x="1000" y="600" width="150" height="150" fill="none" stroke="var(--nuclear)" stroke-width="4" />
-                <circle cx="1075" cy="675" r="15" fill="var(--nuclear)" />
-                <text x="950" y="590" fill="var(--nuclear)" font-family="Orbitron" font-size="16">SOUTH_PLANT_BETA</text>
-
-                <!-- Mesh Network -->
                 <circle cx="600" cy="400" r="350" fill="none" stroke="var(--electric)" stroke-width="2" stroke-dasharray="20,10" />
                 <circle cx="600" cy="400" r="150" fill="none" stroke="var(--bambu)" stroke-width="6" />
-                <text x="600" y="408" fill="white" font-family="Orbitron" font-size="30" text-anchor="middle">SANICON_CORE</text>
+                <text x="600" y="410" fill="white" font-family="Orbitron" font-size="32" text-anchor="middle">SANICON_CORE</text>
+                <!-- Nuclear Glow Nodes -->
+                <circle cx="150" cy="150" r="20" fill="var(--nuclear)">
+                    <animate attributeName="opacity" values="0.3;1;0.3" dur="2s" repeatCount="indefinite" />
+                </circle>
+                <text x="150" y="110" fill="var(--nuclear)" font-family="Orbitron" font-size="16" text-anchor="middle">NUCLEAR_PLANT_ALPHA</text>
             </svg>
         </div>
     </div>
 
     <main class="manifesto-body">
         <div class="text-block">
-            <h2>I. THE INTERPLANETARY HUB</h2>
-            <p>Welcome to <span class="highlight">Sanicon Valley</span>, the one and only interplanetary future city, that lies on the great city of San Jose, far more advanced than many other cities in the world. Our city blends advanced technology, with nature, and repurposing waste for the greater good. Sanicon Valley is home to more than 1,000,000 residents, as it is the hub of social, economic, and technological advancement, with the forward thinking system of urban planning, and repurposing waste. Our city uses advanced technology to repurpose all kinds of waste to useful nutrients, energy, fuel, and more. We keep our city as simple as possible as we fix the major problem which has never been solved for decades in San Jose, which is to improve our farm to table system.</p>
-            <p>There are many problems in San Jose. A major problem is the extreme water shortage in San Jose. Sanicon Valley not only fixes this problem, but also uses this problem to fix another major problem which is having enough water to keep the plants healthy. We will repurpose shower water which can be used to water the plants, so that the plants will be healthy with less water.</p>
+            <h2>I. THE HUB OF ADVANCEMENT</h2>
+            <p>Welcome to <span class="highlight">Sanicon Valley</span>, the one and only interplanetary future city. Our city blends advanced technology with nature, repurposing waste for the greater good. Sanicon Valley is home to more than 1,000,000 residents, serving as the global hub of social and technological advancement.</p>
+            <p>Our city fixes the major problems of San Jose, starting with a revolutionary farm-to-table system that integrates agriculture directly into the urban layout.</p>
+        </div>
+
+        <div class="text-block">
+            <h2 class="nuclear-header">II. NUCLEAR ENERGY PROTOCOL</h2>
+            <p>One energy solution which makes this city interplanetary is <span class="highlight">nuclear energy</span>. The nuclear energy plants are located in low-population areas. Just two plants are enough to power the entire Sanicon Valley, fueling the AI-driven infrastructure that requires massive power loads.</p>
+            <p>We use every possible method: solar energy for houses, hydroelectric power from local water bodies, and wind turbines in high-velocity areas.</p>
+        </div>
+
+        <div class="text-block">
+            <h2>III. THE BIO-FARM BACKYARD</h2>
+            <p>Every house has a vertical farm in their backyard. We repurpose <span class="highlight">shower water</span> to keep plants healthy with minimal fresh water usage. An integrated app and robotic system ensure that food surpluses are distributed to the community, building social bonds San Jose currently lacks.</p>
+            <p>No food is wasted. Robotic bots take remaining peels for compost or seeds for replanting, creating a perfect zero-waste cycle.</p>
+        </div>
+
+        <div class="text-block">
+            <h2>IV. ZONING & SOCIAL COMMERCE</h2>
+            <p>Strict zoning laws ensure maximum space for energy and infrastructure. New houses are capped at 3,000 square feet, and industrial areas are automated for maximum efficiency. Offices are placed in a rectangular outline centered around <span class="highlight">social squares</span> filled with restaurants and engagement hubs.</p>
+            <p>By trapping carbon dioxide and using it for everything from fizz drinks to oxygen conversion, Sanicon Valley leaves zero net waste.</p>
         </div>
     </main>
 
-    <!-- ZOOM ENGINE: VERTICAL FARM DIAGRAM -->
-    <div class="zoom-engine" id="farmZoom">
-        <div class="sticky-wrapper">
-            <svg id="farmDiagram" class="full-page-diagram" viewBox="0 0 1200 800" xmlns="http://www.w3.org">
-                <rect width="1200" height="800" fill="#050505" />
-                <!-- Biological Trays -->
-                <rect x="350" y="100" width="500" height="60" fill="var(--bambu)" opacity="0.3" stroke="var(--bambu)" stroke-width="2" />
-                <rect x="350" y="300" width="500" height="60" fill="var(--bambu)" opacity="0.6" stroke="var(--bambu)" stroke-width="2" />
-                <rect x="350" y="500" width="500" height="60" fill="var(--bambu)" stroke="var(--bambu)" stroke-width="4" />
-                
-                <!-- Hydraulic Recycling System -->
-                <path d="M200 100 L200 700 L350 700" stroke="var(--electric)" stroke-width="12" fill="none" />
-                <text x="180" y="80" fill="var(--electric)" font-family="Orbitron" font-size="18">SHOWER_WATER_RECYCLING</text>
-                <text x="600" y="700" fill="var(--bambu)" font-family="Orbitron" font-size="28" text-anchor="middle">BIO_FARM_MATRIX</text>
-            </svg>
-        </div>
-    </div>
-
-    <main class="manifesto-body">
-        <div class="text-block">
-            <h2>II. BACKYARD AGRICULTURE & COMMUNITY</h2>
-            <p>Also, every house has a <span class="highlight">vertical farm in their backyard</span>. This makes sure that everyone has a farm and a grocery store for agriculture in their own backyard. Everyone will have an app in which they can order a robot which will give the amount and kind of fruit or vegetable upon order. Whenever there is a surplus of fruits or vegetables in a house, then the app will send a notification that there is a surplus and then if the person accepts that they do not want it, then it will notify the entire community that anyone who wants can take it.</p>
-            <p>This ensures that no food is wasted and even the poor can get fruits and vegetables. Also, this enables people to go to each other’s house, communicate, which builds a strong community, which San Jose currently lacks.</p>
-        </div>
-
-        <div class="text-block">
-            <h2>III. CARBON CAPTURE & ZERO WASTE</h2>
-            <p>Our city has little to no carbon footprint. This is because we trap carbon dioxide and use it for various different purposes, from fizz drinks, dry ice, to plants using it. The reason that this is an interplanetary solution is because the carbon dioxide can be used for various purposes like using plants to convert it to oxygen, for air in which you can breathe, and for other uses. We use various different kinds of waste for various different purposes, leaving almost zero net waste.</p>
-            <p>For example we will use remaining food waste as compost, and remove some food remains from cooking oil which will be compost, while the remaining oil will be cleaned and used for soaps. Also other waste that cannot be used as compost, and has little to no nutrition will be used as biogas which will be used for the little gas powered cars. Fruit peels, especially oranges can be used as an organic pesticide.</p>
-        </div>
-
-        <div class="text-block">
-            <h2>IV. AUTOMATION & TRANSPORTATION</h2>
-            <p>In our city, there will be no supermarkets/grocery stores for fruits and vegetables, as every backyard is a farm. The only food items that will be sold will be meat, snacks, and drinks. This means that there is more space for recreational areas, and squares where people can meet together. This brings a stronger sense of community. Also, there will be zero farms, because every backyard is a farm. This makes more space for other important areas like, industrial areas, schools, and parks. For transportation the car and the bus are used. The train is not used because it takes too much space and it is limited to only a few areas. Every industry that involves manual labor will be automated, meaning that no one has to do that kind of work.</p>
-        </div>
-
-        <div class="text-block">
-            <h2>V. THE PLASTIC REVOLUTION</h2>
-            <p>Another problem which is worldwide is the effects of the traditional packaging methods. Now, Sanicon Valley still uses plastic as the packaging method, but there is a new innovation that solves pollution. There will be a law in which everyone has to throw away the plastic waste in a certain area and if they do not follow it, they will be heavily fined. This area is special, because it does not go to landfills, or even gets transported. In that bin, there will be <span class="highlight">plastic eating bacteria</span>, which will almost immediately decompose the plastic allowing there to be practically no plastic waste. Every single package will be made out of plastic.</p>
-        </div>
-
-        <div class="text-block">
-            <h2>VI. NUCLEAR & CLEAN ENERGY</h2>
-            <p>Our way of generating energy is one of the best ways. We do not just use one method, we use every single possible method. We use solar energy which is mainly for houses, and electric vehicle charging stations. We will use every single water body in our area for hydroelectric power. Lastly we will use wind turbines, which will be commonly installed in extremely windy areas. One energy solution which makes this city interplanetary is <span class="nuclear-glow">nuclear energy</span>. The nuclear energy plants will be located in areas which have extremely less population. There will be only two plants, because that is enough to power the entire Sanicon Valley. This will be the main source of energy, as AI will be heavily used and it needs a lot of energy.</p>
-        </div>
-
-        <div class="text-block">
-            <h2>VII. RESIDENTIAL ROBOTICS</h2>
-            <p>A major part of the residential area is the layout of the average house. Each house will look the same as the houses in San Jose but there is a major difference. Every house will have one robot for the backyard. Another robot is optional and will be for helping with the household tasks and has the ability to communicate with other bots. Just by sitting, and without needing a phone, you can use the bot to instantly talk to anyone you want. It is like having a simulated visitor. You can also instantly order the bot to tell the backyard bot to give fruits or vegetables to the person you are talking to, virtually. The backyard has a vertical farm which has an enormous variety of fruits. These fruits use the shower and wasted tap water. Also after eating the fruits, the bot takes the remaining peel and uses it as compost, or uses the seed to grow another of that kind of plant. There is no sewage system, as the toilets and the shower drain are connected to a pipe which later goes to individual plants.</p>
-        </div>
-
-        <div class="text-block">
-            <h2>VIII. ZONING & INFRASTRUCTURE</h2>
-            <p>Now, this city has a very strict zoning law. All of the existing houses can stay as it is, but every new house can have a maximum area of 3,000 square feet excluding the backyard, and the backyard will have a maximum area of 1,000 square feet. The maximum height of the house is two floors, with each floor being max, 8 feet. This is because our city is trying to make every house just the minimum size needed, so that there is more space for other major infrastructure, especially space for energy plants. For the industrial zone, the maximum floors are 5 floors, each floor having a height of 10 feet along with the maximum area being 5,000 square feet. No industrial building will need more space than that. Hospitals will be really big so that more people can be treated at once reducing the wait time. The maximum area is 100,000 square feet, along with the maximum floors being 10 floors, with each floor being 10 feet high. Just 5 of these hospitals is enough to handle the whole Sanicon Valley at once.</p>
-            <p>The benefits of these zoning laws is that there is a lot of space for schools which is enough to have almost every single kid having the access to education. Some space will be left for parks. Now the remaining space will be used for energy generation. Some space is for wind turbines, solar panels, and the majority of the space is for the nuclear power plants which will be secured and will be the farthest from the industries and the residential areas.</p>
-            <p>The way that offices or small companies will be placed is the perfect way for socialization. The offices will be close by and it will be so that people can roam through different offices, and can see what is going on in the area. This makes everything more engaging and enables people to communicate with different small businesses so that they can combine ideas, making better ideas. These companies will be placed such that it is on the outline of a rectangle meaning that the center is a square where there are many restaurants, and various engaging activities, along with space for people to socialize. If people get bored, then they can take a peek on what the businesses are doing.</p>
-        </div>
-    </main>
-
-    <footer>
-        SANICON VALLEY INTERPLANETARY // CORE V1.1.0 // FINAL REVISION
-    </footer>
+    <footer>SANICON VALLEY // FINAL BUILD // MAX GLOW ACTIVE</footer>
 
     <script>
         const cityDiag = document.getElementById('cityDiagram');
-        const farmDiag = document.getElementById('farmDiagram');
         const cityTrigger = document.getElementById('cityZoom');
-        const farmTrigger = document.getElementById('farmZoom');
         const blocks = document.querySelectorAll('.text-block');
 
         window.addEventListener('scroll', () => {
-            // City Zoom
             const cRect = cityTrigger.getBoundingClientRect();
             const cProg = -cRect.top / (cRect.height - window.innerHeight);
             if (cProg >= 0 && cProg <= 1) {
@@ -254,17 +218,8 @@
                 cityDiag.style.opacity = cProg > 0.8 ? 1 - (cProg - 0.8) * 5 : 1;
             }
 
-            // Farm Zoom
-            const fRect = farmTrigger.getBoundingClientRect();
-            const fProg = -fRect.top / (fRect.height - window.innerHeight);
-            if (fProg >= 0 && fProg <= 1) {
-                farmDiag.style.transform = `scale(${1 + fProg * 14})`;
-                farmDiag.style.opacity = fProg > 0.8 ? 1 - (fProg - 0.8) * 5 : 1;
-            }
-
-            // Reveal
             blocks.forEach(b => {
-                if (b.getBoundingClientRect().top < window.innerHeight * 0.85) {
+                if (b.getBoundingClientRect().top < window.innerHeight * 0.9) {
                     b.classList.add('active');
                 }
             });
