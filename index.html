@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SANICON VALLEY | INTERPLANETARY COMMAND</title>
+    <title>SANICON VALLEY | INTERPLANETARY CORE</title>
     <style>
         @import url('https://fonts.googleapis.com');
 
@@ -12,7 +12,6 @@
             --electric: #2979FF;
             --nuclear: #FFEA00;
             --carbon: #000000;
-            --glass: rgba(255, 255, 255, 0.05);
         }
 
         * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -23,36 +22,15 @@
             font-family: 'Inter', sans-serif;
             overflow-x: hidden;
             width: 100vw;
-            /* 3D Scene setup */
-            perspective: 1000px;
+            display: flex;
+            flex-direction: column;
+            align-items: center; /* PERFECT CENTERING */
         }
 
-        /* --- FIXED INTERFACE --- */
-        .hud-overlay {
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            pointer-events: none;
-            z-index: 1000;
-            border: 2px solid rgba(41, 121, 255, 0.1);
-            background: radial-gradient(circle at center, transparent 40%, rgba(0,0,0,0.4) 100%);
-        }
-
-        .nav-header {
-            position: fixed;
-            top: 40px; width: 100%;
-            text-align: center;
-            font-family: 'Orbitron';
-            letter-spacing: 12px;
-            color: var(--bambu);
-            z-index: 1100;
-            text-transform: uppercase;
-            font-size: 1rem;
-            text-shadow: 0 0 15px var(--bambu);
-        }
-
-        /* --- SCROLLING DEPTH CONTAINER --- */
-        .scroll-space {
-            height: 12000px; /* Long scroll depth */
+        /* --- 1. THE VIEWPORT --- */
+        .scroll-container {
+            height: 10000px; /* Long scroll depth for the fly-through */
+            width: 100vw;
             position: relative;
         }
 
@@ -64,134 +42,107 @@
             display: flex;
             justify-content: center;
             align-items: center;
+            perspective: 1200px; /* Base for 3D depth */
             overflow: hidden;
-            perspective: 1000px;
-            transform-style: preserve-3d;
+            background: radial-gradient(circle at center, #111 0%, #000 100%);
         }
 
-        /* --- THE 3D GATES --- */
+        /* --- 2. THE GATES (CENTERED) --- */
         .gate {
             position: absolute;
             width: 100%;
-            max-width: 1000px;
+            max-width: 1100px;
+            padding: 40px;
             display: flex;
             flex-direction: column;
-            justify-content: center;
             align-items: center;
             text-align: center;
             will-change: transform, opacity;
-            backface-visibility: hidden;
+            opacity: 0;
+            pointer-events: none;
         }
 
-        .text-panel {
-            padding: 50px;
-            background: var(--glass);
-            backdrop-filter: blur(15px);
-            border: 1px solid rgba(0, 230, 118, 0.2);
-            box-shadow: 0 0 50px rgba(0,0,0,0.8);
-            width: 100%;
-        }
+        .gate.active { pointer-events: auto; }
 
-        .text-panel h2 {
+        .gate h2 {
             font-family: 'Orbitron';
-            font-size: 3rem;
+            font-size: clamp(2.5rem, 6vw, 4.5rem);
             color: var(--bambu);
             margin-bottom: 30px;
-            text-shadow: 0 0 20px var(--bambu);
+            text-shadow: 0 0 20px rgba(0, 230, 118, 0.4);
+            border-bottom: 5px solid var(--electric);
+            padding-bottom: 10px;
         }
 
-        .text-panel p {
-            font-size: 1.5rem;
-            line-height: 1.8;
-            color: #eee;
-            margin-bottom: 1.2rem;
+        .gate p {
+            font-size: clamp(1.2rem, 2.2vw, 2rem);
+            line-height: 1.9;
+            color: #ccc;
+            margin-bottom: 2rem;
         }
 
-        .diagram-box {
-            width: 100%;
-            height: 400px;
-            display: flex;
-            justify-content: center;
+        .nuclear-header {
+            color: var(--nuclear) !important;
+            text-shadow: 0 0 30px #FFEA00, 0 0 70px #FFEA00 !important;
+            border-bottom: 5px solid var(--nuclear) !important;
         }
 
         .highlight { color: var(--electric); font-weight: 900; }
-        .nuclear { color: var(--nuclear); text-shadow: 0 0 20px var(--nuclear); font-weight: 900; }
 
         footer {
-            position: relative;
-            z-index: 2000;
             padding: 100px;
             text-align: center;
-            background: #000;
+            width: 100%;
+            border-top: 1px solid #222;
             font-family: 'Orbitron';
             color: #444;
-            letter-spacing: 5px;
         }
     </style>
 </head>
 <body>
 
-    <div class="hud-overlay"></div>
-    <nav class="nav-header">Sanicon Valley // Core Dispatch</nav>
-
-    <div class="scroll-space">
+    <div class="scroll-container">
         <div class="sticky-scene">
 
             <!-- GATE 0: HERO -->
-            <div class="gate" id="gate0">
-                <p style="letter-spacing: 20px; color: var(--electric); margin-bottom: 20px;">INITIATING UPLINK</p>
-                <h1 style="font-family:'Orbitron'; font-size: 8vw; background: linear-gradient(to bottom, #fff, var(--bambu)); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">SANICON VALLEY</h1>
+            <div class="gate" id="gate0" style="opacity: 1;">
+                <p style="letter-spacing: 15px; color: var(--electric); font-weight: 900; margin-bottom: 20px;">SYSTEM_LINK // UPLINK</p>
+                <h1 style="font-family:'Orbitron'; font-size: 10vw; background: linear-gradient(to bottom, #fff, var(--bambu)); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">SANICON VALLEY</h1>
+                <p style="letter-spacing: 10px; opacity: 0.6;">SCROLL TO ENTER</p>
             </div>
 
-            <!-- GATE 1: MANIFESTO 1 -->
-            <div class="gate" id="gate1" style="opacity:0">
-                <div class="text-panel">
-                    <h2>I. THE MASTERPLAN</h2>
-                    <p>Welcome to <b>Sanicon Valley</b>, the one and only interplanetary future city. Our city blends advanced technology with nature, repurposing waste for the greater good.</p>
-                    <p>Home to over 1,000,000 residents, it is the hub of social, economic, and technological advancement, solving decadal problems in San Jose through a revolutionary <span class="highlight">farm to table system.</span></p>
-                </div>
+            <!-- GATE 1: MANIFESTO PART 1 -->
+            <div class="gate" id="gate1">
+                <h2>I. THE HUB</h2>
+                <p>Welcome to <b>Sanicon Valley</b>, the one and only interplanetary future city. Our city blends advanced technology with nature, repurposing waste for the greater good. It is the hub of social, economic, and technological advancement.</p>
+                <p>We solve the decades-old problems of San Jose through an elite <span class="highlight">farm to table system</span> and 100% waste reclamation protocol.</p>
             </div>
 
-            <!-- GATE 2: WATER RECLAMATION -->
-            <div class="gate" id="gate2" style="opacity:0">
-                <div class="text-panel">
-                    <h2>II. BIO-SYSTEMS</h2>
-                    <p>Sanicon Valley solves the extreme water shortage by <span class="highlight">repurposing shower water</span> to sustain vertical backyard farms. This ensures every citizen has a private grocery store in their own backyard.</p>
-                    <p>Surplus crops are shared via a community app and robotic couriers, building social bonds that San Jose currently lacks.</p>
-                </div>
+            <!-- GATE 2: WATER & AGRICULTURE -->
+            <div class="gate" id="gate2">
+                <h2>II. BIO-SYSTEMS</h2>
+                <p>Sanicon Valley solves the extreme water shortage by <span class="highlight">repurposing shower water</span> to sustain vertical backyard farms. This ensures every citizen has a private grocery store in their own backyard.</p>
+                <p>Surplus crops are shared via a community app and robotic couriers, building social bonds that San Jose currently lacks.</p>
             </div>
 
-            <!-- GATE 3: ENERGY -->
-            <div class="gate" id="gate3" style="opacity:0">
-                <div class="text-panel">
-                    <h2 class="nuclear">III. NUCLEAR CORE</h2>
-                    <p>We trap carbon dioxide for fizz drinks and oxygen conversion. One interplanetary solution is our <span class="nuclear">nuclear energy grid</span>. Just two plants power the entire valley.</p>
-                    <p>This provides the massive energy required for AI-driven infrastructure, complemented by solar, hydro, and wind turbines for a zero-carbon future.</p>
-                </div>
+            <!-- GATE 3: NUCLEAR POWER -->
+            <div class="gate" id="gate3">
+                <h2 class="nuclear-header">III. NUCLEAR CORE</h2>
+                <p>One interplanetary solution which makes this city unique is our <span class="highlight">nuclear energy grid</span>. Just two plants power the entire valley, providing the main energy source for AI-driven infrastructure.</p>
+                <p>We trap carbon dioxide for fizz drinks and oxygen conversion, leaving a zero-carbon footprint across the interplanetary grid.</p>
             </div>
 
-            <!-- GATE 4: ZONING -->
-            <div class="gate" id="gate4" style="opacity:0">
-                <div class="text-panel">
-                    <h2>IV. ROBOTICS & ZONING</h2>
-                    <p>Every home features a backyard bot for farming and household assistance. Our strict <span class="highlight">zoning laws</span> cap new homes at 3,000 sq ft to maximize social and industrial infrastructure.</p>
-                    <p>Hospitals are built for scale, covering 100,000 sq ft across 10 floors, ensuring zero wait times for the population of Sanicon Valley.</p>
-                </div>
-            </div>
-
-            <!-- GATE 5: COMMERCE -->
-            <div class="gate" id="gate5" style="opacity:0">
-                <div class="text-panel">
-                    <h2>V. SOCIAL COMMERCE</h2>
-                    <p>Offices are arranged in rectangular matrices around <span class="highlight">social squares</span> filled with restaurants and engagement hubs. This enables spontaneous communication and collaborative innovation.</p>
-                    <p>Sanicon Valley is the blueprint for the interplanetary future—merging efficiency with unity.</p>
-                </div>
+            <!-- GATE 4: ZONING & ROBOTICS -->
+            <div class="gate" id="gate4">
+                <h2>IV. URBAN LOGIC</h2>
+                <p>Every home features a backyard bot for farming and assistance. Our strict <span class="highlight">zoning laws</span> cap new homes at 3,000 sq ft to maximize industrial space and energy plants.</p>
+                <p>Offices are arranged in matrices around social squares, spontaneous communication, and collaborative innovation. This is the blueprint for the interplanetary future.</p>
             </div>
 
         </div>
     </div>
 
-    <footer>SANICON VALLEY // END OF DATA STREAM</footer>
+    <footer>SANICON VALLEY // INTERPLANETARY CORE</footer>
 
     <script>
         const gates = [
@@ -199,26 +150,25 @@
             document.getElementById('gate1'),
             document.getElementById('gate2'),
             document.getElementById('gate3'),
-            document.getElementById('gate4'),
-            document.getElementById('gate5')
+            document.getElementById('gate4')
         ];
 
         window.addEventListener('scroll', () => {
             const scrollY = window.pageYOffset;
             
             gates.forEach((gate, index) => {
-                // Each gate has a 2000px scroll range
+                // Spacing each gate 2000px apart
                 const start = index * 2000;
                 const end = start + 2000;
                 
                 if (scrollY >= start && scrollY <= end) {
                     const progress = (scrollY - start) / 2000;
                     
-                    // Fly-through logic: From 1000px depth to -1000px (past the camera)
-                    const zPos = 800 - (progress * 2500); 
+                    // Fly-through: From 800px deep to -1500px (flying past you)
+                    const zPos = 800 - (progress * 2300); 
                     gate.style.transform = `translateZ(${zPos}px)`;
                     
-                    // Visibility logic
+                    // Visibility fade
                     if (progress < 0.1) {
                         gate.style.opacity = progress * 10;
                     } else if (progress > 0.8) {
@@ -228,9 +178,11 @@
                     }
                     
                     gate.style.display = "flex";
+                    gate.classList.add('active');
                 } else {
                     gate.style.opacity = 0;
                     gate.style.display = "none";
+                    gate.classList.remove('active');
                 }
             });
         });
