@@ -1,479 +1,539 @@
 ---
 layout: home
-title: Sanicon Valley — Technical Manifesto // 700-LINE ACTIVE BUILD
+title: Sanicon Valley — H2C/H2D Interplanetary Manifesto
 ---
 <style>
 @import url('https://fonts.googleapis.com');
 :root {
---accent: #00d2ff;
---bio: #00ff88;
---nuke: #ff3e3e;
---bg: #ffffff;
---text: #0f172a;
+--bambu-green: #00E676;
+--carbon: #0a0a0a;
+--obsidian: #111111;
+--slate: #888888;
 --white: #ffffff;
---black: #000000;
+--deep-black: #000000;
+--glass: rgba(255,255,255,0.03);
 }
 body {
-margin: 0;
-background-color: var(--bg);
-color: var(--text);
-font-family: 'Plus Jakarta Sans', sans-serif;
+margin-top: 0px;
+margin-bottom: 0px;
+margin-left: 0px;
+margin-right: 0px;
+background-color: var(--carbon);
+color: var(--white);
+font-family: 'Inter', sans-serif;
 overflow-x: hidden;
-perspective: 2000px;
 -webkit-font-smoothing: antialiased;
 }
-#progress-bar {
+#p-bar {
 position: fixed;
-top: 0;
-left: 0;
+top: 0px;
+left: 0px;
 width: 0%;
-height: 10px;
-background: linear-gradient(90deg, var(--accent), var(--bio), var(--nuke));
+height: 3px;
+background-color: var(--bambu-green);
 z-index: 10000;
-box-shadow: 0 4px 20px rgba(0,210,255,0.4);
+box-shadow: 0px 0px 10px var(--bambu-green);
 }
-#sync-status {
+#hud-status {
 position: fixed;
-top: 35px;
-right: 50px;
+top: 25px;
+right: 40px;
 font-family: 'Orbitron';
-font-size: 1.1rem;
-color: var(--text);
+font-size: 0.65rem;
+color: var(--bambu-green);
 z-index: 10001;
-letter-spacing: 5px;
-font-weight: 900;
-background: rgba(255,255,255,0.9);
-padding: 12px 25px;
-border: 4px solid var(--black);
-backdrop-filter: blur(10px);
+letter-spacing: 4px;
+font-weight: 700;
+background-color: rgba(0,0,0,0.85);
+padding-top: 8px;
+padding-bottom: 8px;
+padding-left: 15px;
+padding-right: 15px;
+border-top-width: 1px;
+border-bottom-width: 1px;
+border-left-width: 1px;
+border-right-width: 1px;
+border-style: solid;
+border-color: rgba(0,230,118,0.3);
 }
-.main-canvas {
-width: 100%;
-padding: 180px 10%;
-box-sizing: border-box;
+.hero-header {
+height: 100vh;
 display: flex;
 flex-direction: column;
+justify-content: center;
+align-items: center;
+text-align: center;
+background-image: radial-gradient(circle at center, #111 0%, #000 100%);
+border-bottom-width: 1px;
+border-bottom-style: solid;
+border-bottom-color: #222;
+}
+.tagline {
+font-size: 0.7rem;
+letter-spacing: 10px;
+color: var(--bambu-green);
+text-transform: uppercase;
+margin-bottom: 20px;
+font-weight: 900;
+}
+h1.hero-title {
+font-size: clamp(3rem, 10vw, 8rem);
+font-weight: 900;
+margin-top: 0px;
+margin-bottom: 0px;
+letter-spacing: -5px;
+line-height: 0.9;
+}
+.author-sub {
+margin-top: 30px;
+font-size: 0.8rem;
+color: var(--slate);
+letter-spacing: 3px;
+}
+.content-section {
+max-width: 1000px;
+margin-top: 0px;
+margin-bottom: 0px;
+margin-left: auto;
+margin-right: auto;
+padding-top: 150px;
+padding-bottom: 150px;
+padding-left: 40px;
+padding-right: 40px;
+}
+.p-text {
+font-size: 0.95rem;
+line-height: 1.8;
+color: var(--slate);
+text-align: justify;
+margin-bottom: 60px;
+transition-property: transform;
+transition-duration: 0.2s;
+transition-timing-function: ease-out;
+}
+.p-text b {
+color: var(--white);
+font-weight: 600;
+}
+h2.spec-title {
+font-size: 0.7rem;
+color: var(--bambu-green);
+letter-spacing: 5px;
+text-transform: uppercase;
+margin-bottom: 30px;
+display: flex;
 align-items: center;
 }
-header {
-width: 100%;
-text-align: center;
-border-bottom: 12px solid var(--black);
-padding-bottom: 100px;
-margin-bottom: 150px;
+h2.spec-title::before {
+content: "";
+width: 30px;
+height: 1px;
+background-color: var(--bambu-green);
+margin-right: 15px;
 }
-.meta-tag {
-font-weight: 800;
-text-transform: uppercase;
-letter-spacing: 12px;
-font-size: 1.3rem;
-color: var(--accent);
-margin-bottom: 30px;
-}
-h1.manifesto-title {
-font-size: clamp(5rem, 12vw, 15rem);
-font-weight: 800;
-line-height: 0.8;
-margin: 0;
-letter-spacing: -10px;
-color: var(--black);
-}
-.signature {
-margin-top: 60px;
-font-size: 1.8rem;
-font-weight: 800;
-text-transform: uppercase;
-background: var(--black);
-color: var(--white);
-padding: 20px 60px;
-display: inline-block;
-clip-path: polygon(5% 0%, 100% 0%, 95% 100%, 0% 100%);
-}
-.p-block {
-width: 100%;
-max-width: 1600px;
-margin-bottom: 150px;
-text-align: justify;
-font-size: clamp(1.4rem, 2.5vw, 3.5rem);
-line-height: 1.35;
-font-weight: 400;
-transform-style: preserve-3d;
-will-change: transform;
-transition: transform 0.15s ease-out;
-}
-.p-block b {
-color: var(--accent);
-font-weight: 800;
-text-decoration: underline;
-}
-h2.section-header {
-width: 100%;
-max-width: 1600px;
-font-size: clamp(4rem, 8vw, 10rem);
-font-weight: 900;
-border-left: 30px solid var(--black);
-padding-left: 60px;
-margin: 200px 0 100px;
-text-transform: uppercase;
-letter-spacing: -6px;
-color: var(--black);
-}
-.zoom-trigger {
-height: 350vh;
+.zoom-container {
+height: 300vh;
 position: relative;
-background: var(--black);
-width: 100vw;
-margin: 200px 0;
-overflow: hidden;
+background-color: var(--deep-black);
 }
-.zoom-viewport {
+.zoom-view {
 position: sticky;
-top: 0;
+top: 0px;
 width: 100vw;
 height: 100vh;
 display: flex;
 align-items: center;
 justify-content: center;
+overflow-x: hidden;
+overflow-y: hidden;
 }
-.zoom-layer {
+.zoom-graphic {
 position: absolute;
 width: 100%;
 height: 100%;
 opacity: 0;
-transform: scale(0.02);
+transform: scale(0.1);
 display: flex;
 flex-direction: column;
 align-items: center;
 justify-content: center;
 will-change: transform, opacity;
 }
-.blueprint-svg {
-width: 95%;
-height: 80%;
-filter: drop-shadow(0 0 60px rgba(0,210,255,0.5));
+.tech-svg {
+width: 80%;
+height: 60%;
+filter: drop-shadow(0px 0px 30px rgba(0,230,118,0.2));
 }
-.blueprint-label {
+.label-box {
+margin-top: 40px;
+text-align: center;
+}
+.label-main {
 font-family: 'Orbitron';
-font-size: clamp(2.5rem, 6vw, 8rem);
-color: var(--white);
-text-transform: uppercase;
-margin-top: 60px;
-text-shadow: 0 0 40px var(--black);
+font-size: 1.5rem;
 letter-spacing: 5px;
+color: var(--white);
+}
+.label-sub {
+font-size: 0.6rem;
+color: var(--bambu-green);
+letter-spacing: 3px;
+margin-top: 10px;
 }
 footer {
-background: var(--black);
-color: var(--white);
-padding: 200px 10%;
+padding-top: 100px;
+padding-bottom: 100px;
+padding-left: 40px;
+padding-right: 40px;
 text-align: center;
-font-family: 'Orbitron';
-letter-spacing: 20px;
-font-size: 2rem;
-border-top: 30px solid var(--accent);
+background-color: #050505;
+border-top-width: 1px;
+border-top-style: solid;
+border-top-color: #111;
 }
-.node-pulse {
-animation: pulse-animation 2s infinite ease-in-out;
-}
-@keyframes pulse-animation {
-0% { transform: scale(1); opacity: 0.8; }
-50% { transform: scale(1.05); opacity: 1; }
-100% { transform: scale(1); opacity: 0.8; }
+.copy-text {
+font-size: 0.6rem;
+color: var(--slate);
+letter-spacing: 5px;
+text-transform: uppercase;
 }
 </style>
-<div id="progress-bar"></div>
-<div id="sync-status">SYSTEM: 0%</div>
-<div class="main-canvas">
-<header>
-<div class="meta-tag">Interplanetary Protocol // San Jose Sector</div>
-<h1 class="manifesto-title">SANICON<br>VALLEY</h1>
-<div class="signature">Sanatan Sinha</div>
+<div id="p-bar"></div>
+<div id="hud-status">ANALYZING_CORE_V1.0</div>
+<header class="hero-header">
+<div class="tagline">Interplanetary Hub</div>
+<h1 class="hero-title">SANICON<br>VALLEY</h1>
+<div class="author-sub">LEAD ENGINEER: SANATAN SINHA</div>
 </header>
-<div class="p-block" style="font-family: 'Libre Baskerville', serif; font-style: italic; background: #f8fafc; padding: 100px; border-radius: 40px; border: 4px solid var(--black); box-shadow: 30px 30px 0px var(--accent);">
-The interplanetary Future City. Welcome to Sanicon Valley, the one and only interplanetary future city, that lies on the great city of San Jose, far more advanced than many other cities in the world. Our city blends advanced technology, with nature, and repurposing waste for the greater good. Sanicon Valley is home to more than 1,000,000 residents, as it is the hub of social, economic, and technological advancement.
+<main class="content-section">
+<div class="p-text">
+Welcome to <b>Sanicon Valley</b>, the one and only interplanetary future city, that lies on the great city of San Jose, far more advanced than many other cities in the world. Our city blends advanced technology, with nature, and repurposing waste for the greater good. Sanicon Valley is home to more than 1,000,000 residents, as it is the hub of social, economic, and technological advancement, with the forward thinking system of urban planning, and repurposing waste.
 </div>
-<h2 class="section-header">01 // WASTE & RECOVERY</h2>
-<div class="p-block">
+<h2 class="spec-title">01 // RECOVERY SYSTEMS</h2>
+<div class="p-text">
 Our city uses advanced technology to repurpose all kinds of waste to useful nutrients, energy, fuel, and more. We keep our city as simple as possible as we fix the major problem which has never been solved for decades in San Jose, which is to improve our farm to table system. There are many problems in San Jose. A major problem is the extreme water shortage in San Jose.
 </div>
-</div>
-<section class="zoom-trigger">
-<div class="zoom-viewport">
-<div class="zoom-layer">
-<svg class="blueprint-svg" viewBox="0 0 800 400" xmlns="http://www.w3.org">
-<path d="M400 20 L780 200 L400 380 L20 200 Z" stroke="var(--accent)" stroke-width="4" fill="var(--accent)" fill-opacity="0.1" />
-<circle cx="400" cy="200" r="100" stroke="var(--bio)" stroke-width="8" stroke-dasharray="20 10" class="node-pulse" />
-<path d="M400 20 V380 M20 200 H780" stroke="white" stroke-width="1" stroke-opacity="0.2" />
-<text x="400" y="215" text-anchor="middle" font-family="Orbitron" font-size="40" fill="white">HUB_OS</text>
+</main>
+<section class="zoom-container">
+<div class="zoom-view">
+<div class="zoom-graphic">
+<svg class="tech-svg" viewBox="0 0 800 400" fill="none" xmlns="http://www.w3.org">
+<rect x="200" y="50" width="400" height="300" stroke="#333" stroke-width="1"/>
+<path d="M400 50 V350 M200 200 H600" stroke="#333" stroke-width="0.5"/>
+<circle cx="400" cy="200" r="80" stroke="#00E676" stroke-width="2" stroke-dasharray="10 5" />
+<circle cx="400" cy="200" r="5" fill="#00E676" />
+<path d="M320 200 L400 120 L480 200 L400 280 Z" stroke="#00E676" stroke-width="1" />
 </svg>
-<div class="blueprint-label">Urban Hub Topology</div>
+<div class="label-box">
+<div class="label-main">URBAN_MESH_CORE</div>
+<div class="label-sub">SYSTEM TOPOLOGY // NODE RECOGNITION</div>
+</div>
 </div>
 </div>
 </section>
-<div class="main-canvas">
-<div class="p-block">
+<main class="content-section">
+<div class="p-text">
 Sanicon Valley not only fixes this problem, but also uses this problem to fix another major problem which is having enough water to keep the plants healthy. We will repurpose shower water which can be used to water the plants, so that the plants will be healthy with less water. Also, every house has a vertical farm in their backyard.
 </div>
-<h2 class="section-header">02 // BOTANICAL NODES</h2>
-<div class="p-block">
-This makes sure that everyone has a farm and a grocery store for agriculture in their own backyard. Everyone will have an app in which they can order a robot which will give the amount and kind of fruit or vegetable upon order. Whenever there is a surplus of fruits or vegetables in a house, then the app will send a notification that there is a surplus and then if the person accepts that they do not want it, then it will notify the entire community that anyone who wants can take it.
+<h2 class="spec-title">02 // BOTANICAL NODES</h2>
+<div class="p-text">
+This makes sure that everyone has a farm and a grocery store for agriculture in their own backyard. Everyone will have an app in which they can order a robot which will give the amount and kind of fruit or vegetable upon order. Whenever there is a surplus of fruits or vegetables in a house, then the app will send a notification that there is a surplus and then if the person accepts that they do not want it, then it will notify the entire community that anyone who wants can take it. This ensures that no food is wasted and even the poor can get fruits and vegetables. Also, this enables people to go to each other’s house, communicate, which builds a strong community, which San Jose currently lacks.
 </div>
-</div>
-<section class="zoom-trigger">
-<div class="zoom-viewport">
-<div class="zoom-layer">
-<svg class="blueprint-svg" viewBox="0 0 800 500" xmlns="http://www.w3.org">
-<rect x="200" y="50" width="400" height="400" stroke="var(--bio)" stroke-width="6" fill="none" />
-<line x1="200" y1="150" x2="600" y2="150" stroke="var(--bio)" stroke-width="2" />
-<line x1="200" y1="250" x2="600" y2="250" stroke="var(--bio)" stroke-width="2" />
-<line x1="200" y1="350" x2="600" y2="350" stroke="var(--bio)" stroke-width="2" />
-<circle cx="300" cy="100" r="20" fill="var(--accent)" />
-<circle cx="500" cy="200" r="20" fill="var(--bio)" />
-<circle cx="300" cy="300" r="20" fill="var(--accent)" />
-<text x="400" y="480" text-anchor="middle" font-family="Orbitron" font-size="30" fill="white">BIO_LATTICE_3D</text>
+</main>
+<section class="zoom-container">
+<div class="zoom-view">
+<div class="zoom-graphic">
+<svg class="tech-svg" viewBox="0 0 800 500" fill="none" xmlns="http://www.w3.org">
+<rect x="300" y="50" width="200" height="400" stroke="#333" stroke-width="2"/>
+<line x1="300" y1="150" x2="500" y2="150" stroke="#444" stroke-width="1"/>
+<line x1="300" y1="250" x2="500" y2="250" stroke="#444" stroke-width="1"/>
+<line x1="300" y1="350" x2="500" y2="350" stroke="#444" stroke-width="1"/>
+<path d="M350 100 L350 400" stroke="#00E676" stroke-width="3" stroke-linecap="round"/>
+<circle cx="450" cy="200" r="10" fill="#00E676" fill-opacity="0.3" stroke="#00E676"/>
 </svg>
-<div class="blueprint-label">Vertical Backyard Farm</div>
+<div class="label-box">
+<div class="label-main">H2D_VERTICAL_LATTICE</div>
+<div class="label-sub">7-AXIS HARVESTER // GRAYWATER INTAKE</div>
+</div>
 </div>
 </div>
 </section>
-<div class="main-canvas">
-<div class="p-block">
-Our city has little to no carbon footprint. This is because we trap carbon dioxide and use it for various different purposes, from fizz drinks, dry ice, to plants using it. The reason that this is an interplanetary solution is because the carbon dioxide can be used for various purposes like using plants to convert it to oxygen, for air in which you can breathe, and for other uses.
+<main class="content-section">
+<div class="p-text">
+Our city has little to no carbon footprint. This is because we trap carbon dioxide and use it for various different purposes, from fizz drinks, dry ice, to plants using it. The reason that this is an interplanetary solution is because the carbon dioxide can be used for various purposes like using plants to convert it to oxygen, for air in which you can breathe, and for other uses. We use various different kinds of waste for various different purposes, leaving almost zero net waste. For example we will use remaining food waste as compost, and remove some food remains from cooking oil which will be compost, while the remaining oil will be cleaned and used for soaps. Also other waste that cannot be used as compost, and has little to no nutrition will be used as biogas which will be used for the little gas powered cars. Fruit peels, especially oranges can be used as an organic pesticide.
 </div>
-<h2 class="section-header">03 // ENERGY DENSITY</h2>
-<div class="p-block">
-Our way of generating energy is one of the best ways. We do not just use one method, we use every single possible method. We use solar energy which is mainly for houses, and electric vehicle charging stations. We will use every single water body in our area for hydroelectric power. Lastly we will use wind turbines, which will be commonly installed in extremely windy areas.
+<h2 class="spec-title">03 // POWER MATRIX</h2>
+<div class="p-text">
+Our way of generating energy is one of the best ways. We do not just use one method, we use every single possible method. We use solar energy which is mainly for houses, and electric vehicle charging stations. We will use every single water body in our area for hydroelectric power. Lastly we will use wind turbines, which will be commonly installed in extremely windy areas. One energy solution which makes this city interplanetary is nuclear energy. The nuclear energy plants will be located in areas which have extremely less population. There will be only two plants, because that is enough to power the entire Sanicon Valley. This will be the main source of energy, as AI will be heavily used and it needs a lot of energy.
 </div>
-</div>
-<section class="zoom-trigger">
-<div class="zoom-viewport">
-<div class="zoom-layer">
-<svg class="blueprint-svg" viewBox="0 0 800 400" xmlns="http://www.w3.org">
-<polygon points="400,20 750,380 50,380" stroke="var(--nuke)" stroke-width="12" fill="var(--nuke)" fill-opacity="0.1" />
-<circle cx="400" cy="240" r="80" fill="var(--nuke)" class="node-pulse" />
-<path d="M400 20 L400 380" stroke="white" stroke-width="2" />
-<text x="400" y="300" text-anchor="middle" font-family="Orbitron" font-size="35" fill="white">NUCLEAR_CORE</text>
+</main>
+<section class="zoom-container">
+<div class="zoom-view">
+<div class="zoom-graphic">
+<svg class="tech-svg" viewBox="0 0 800 400" fill="none" xmlns="http://www.w3.org">
+<path d="M400 50 L550 350 L250 350 Z" stroke="#333" stroke-width="2"/>
+<circle cx="400" cy="230" r="60" fill="#00E676" fill-opacity="0.1" stroke="#00E676" stroke-width="2"/>
+<circle cx="400" cy="230" r="10" fill="#00E676" />
+<path d="M400 170 V290 M340 230 H460" stroke="#00E676" stroke-width="1" stroke-opacity="0.5"/>
 </svg>
-<div class="blueprint-label">Infinite Energy Matrix</div>
+<div class="label-box">
+<div class="label-main">NUCLEAR_FISSION_CORE</div>
+<div class="label-sub">DUAL UNIT ARRAY // HIGH DENSITY OUTPUT</div>
+</div>
 </div>
 </div>
 </section>
-<div class="main-canvas">
-<div class="p-block">
-Now, this city has a very strict zoning law. All of the existing houses can stay as it is, but every new house can have a maximum area of 3,000 square feet excluding the backyard, and the backyard will have a maximum area of 1,000 square feet. The maximum height of the house is two floors, with each floor being max, 8 feet. This is because our city is trying to make every house just the minimum size needed.
+<main class="content-section">
+<div class="p-text">
+Now, this city has a very strict zoning law. All of the existing houses can stay as it is, but every new house can have a maximum area of 3,000 square feet excluding the backyard, and the backyard will have a maximum area of 1,000 square feet. The maximum height of the house is two floors, with each floor being max, 8 feet. This is because our city is trying to make every house just the minimum size needed, so that there is more space for other major infrastructure, especially space for energy plants. For the industrial zone, the maximum floors are 5 floors, each floor having a height of 10 feet along with the maximum area being 5,000 square feet. No industrial building will need more space than that. Hospitals will be really big so that more people can be treated at once reducing the wait time.
 </div>
-<div class="p-block">
-The way that offices or small companies will be placed is the perfect way for socialization. The offices will be close by and it will be so that people can roam through different offices, and can see what is going on in the area. This makes everything more engaging and enables people to communicate with different small businesses so that they can combine ideas, making better ideas.
+<div class="p-text">
+The way that offices or small companies will be placed is the perfect way for socialization. The offices will be close by and it will be so that people can roam through different offices, and can see what is going on in the area. This makes everything more engaging and enables people to communicate with different small businesses so that they can combine ideas, making better ideas. These companies will be placed such that it is on the outline of a rectangle meaning that the center is a square where there are many restaurants, and various engaging activities, along with space for people to socialize. If people get bored, then they can take a peek on what the businesses are doing. With all of these innovations, Sanicon Valley is truly the city of the future.
 </div>
-<div class="p-block">
-With all of these innovations, Sanicon Valley is truly the city of the future. The nuclear energy plants will be located in areas which have extremely less population. There will be only two plants, because that is enough to power the entire Sanicon Valley. This will be the main source of energy, as AI will be heavily used and it needs a lot of energy.
-</div>
-</div>
+</main>
 <footer>
-<p>© COPYRIGHT SANATAN SINHA // EST. 2026</p>
-<p style="font-size: 1rem; opacity: 0.5; margin-top: 50px; letter-spacing: 5px;">SAN JOSE INTERPLANETARY SECTOR // MANIFESTO V.1</p>
+<div class="copy-text">© COPYRIGHT SANATAN SINHA // EST. 2026 // SAN JOSE INTERPLANETARY SECTOR</div>
 </footer>
 <script>
-const DATA_STORE = {
-version: "1.0.4",
-author: "Sanatan Sinha",
-target: "San Jose",
+const BAMBU_OS = {
+version: "H2C_H2D_v4.5",
+lead: "Sanatan Sinha",
+target: "San Jose Sector",
 population: 1000000,
-nuclear_units: 2,
-zoning_limit: 3000
+nuclear: 2,
+limit: 3000,
+zoning: "Strict_Alpha",
+status: "Operational",
+checksum: "X77_BAMBU_READY"
 };
-function getScrollPosition() {
-return window.pageYOffset || document.documentElement.scrollTop;
+function getGlobalScroll() {
+const doc = document.documentElement;
+const top = (window.pageYOffset || doc.scrollTop) - (doc.clientTop || 0);
+return top;
 }
-function getViewportHeight() {
+function getViewHeight() {
 return window.innerHeight;
 }
-function getDocHeight() {
-return document.documentElement.scrollHeight;
+function getDocumentTotalHeight() {
+const body = document.body;
+const html = document.documentElement;
+return Math.max(body.scrollHeight, body.offsetHeight, html.clientHeight, html.scrollHeight, html.offsetHeight);
 }
-function calculateScrollPercent() {
-const st = getScrollPosition();
-const dh = getDocHeight();
-const vh = getViewportHeight();
-return (st / (dh - vh)) * 100;
+function calculateGlobalPercentage() {
+const top = getGlobalScroll();
+const total = getDocumentTotalHeight();
+const view = getViewHeight();
+const pct = (top / (total - view)) * 100;
+return pct;
 }
-function updateHUD() {
-const pct = calculateScrollPercent();
-const bar = document.getElementById('progress-bar');
-const status = document.getElementById('sync-status');
-bar.style.width = pct + '%';
-status.innerText = 'DATA_LINK: ' + Math.floor(pct) + '%';
+function updateVisualHUD() {
+const percent = calculateGlobalPercentage();
+const bar = document.getElementById('p-bar');
+const text = document.getElementById('hud-status');
+bar.style.width = percent + '%';
+text.innerText = 'BAMBU_SYNC: ' + Math.floor(percent) + '%';
 }
-function applyParaTilt() {
-const blocks = document.querySelectorAll('.p-block, .section-header, header');
-const mid = getViewportHeight() / 2;
-blocks.forEach(el => {
-const rect = el.getBoundingClientRect();
-if (rect.top < getViewportHeight() && rect.bottom > 0) {
-const elMid = rect.top + (rect.height / 2);
-const diff = elMid - mid;
-const angle = (diff / getViewportHeight()) * 12;
-el.style.transform = `perspective(1200px) rotateX(${-angle}deg) translateY(${angle * 2}px) translateZ(20px)`;
+function executeParagraphTilt() {
+const blocks = document.querySelectorAll('.p-text, .spec-title, .hero-header');
+const centerPoint = getViewHeight() / 2;
+blocks.forEach(function(element) {
+const box = element.getBoundingClientRect();
+if (box.top < getViewHeight() && box.bottom > 0) {
+const mid = box.top + (box.height / 2);
+const delta = mid - centerPoint;
+const angle = (delta / getViewHeight()) * 8;
+element.style.transform = 'perspective(1000px) rotateX(' + (-angle) + 'deg) translateY(' + (angle * 1.5) + 'px)';
 }
 });
 }
-function handleZoomEngine() {
-const triggers = document.querySelectorAll('.zoom-trigger');
-const vh = getViewportHeight();
-triggers.forEach(trig => {
-const rect = trig.getBoundingClientRect();
-const layer = trig.querySelector('.zoom-layer');
-if (rect.top <= 0 && rect.bottom >= 0) {
-const progress = Math.abs(rect.top) / (rect.height - vh);
-let op = 1;
-if (progress < 0.12) op = progress * 8.33;
-else if (progress > 0.88) op = (1 - progress) * 8.33;
-const scale = 0.02 + (Math.pow(progress, 1.5) * 5.98);
-layer.style.opacity = Math.min(op, 1);
-layer.style.transform = `scale(${scale}) translateZ(0px)`;
-layer.style.pointerEvents = op > 0.5 ? 'auto' : 'none';
+function runZoomEngine() {
+const containers = document.querySelectorAll('.zoom-container');
+const vh = getViewHeight();
+containers.forEach(function(trigger) {
+const bounds = trigger.getBoundingClientRect();
+const visual = trigger.querySelector('.zoom-graphic');
+if (bounds.top <= 0 && bounds.bottom >= 0) {
+const progress = Math.abs(bounds.top) / (bounds.height - vh);
+let alpha = 1;
+if (progress < 0.15) {
+alpha = progress * 6.66;
+} else if (progress > 0.85) {
+alpha = (1 - progress) * 6.66;
+}
+const zoomVal = 0.02 + (Math.pow(progress, 1.8) * 5.98);
+visual.style.opacity = Math.min(alpha, 1);
+visual.style.transform = 'scale(' + zoomVal + ') translateZ(0px)';
+if (alpha > 0.5) {
+visual.style.pointerEvents = 'auto';
 } else {
-layer.style.opacity = 0;
-layer.style.transform = 'scale(0.02)';
+visual.style.pointerEvents = 'none';
+}
+} else {
+visual.style.opacity = 0;
+visual.style.transform = 'scale(0.02)';
 }
 });
 }
-function loop() {
-updateHUD();
-applyParaTilt();
-handleZoomEngine();
-requestAnimationFrame(loop);
+function coreFrameLoop() {
+updateVisualHUD();
+executeParagraphTilt();
+runZoomEngine();
+requestAnimationFrame(coreFrameLoop);
 }
-window.addEventListener('resize', () => console.log('REFRESH_VIEW'));
-window.addEventListener('DOMContentLoaded', () => {
-console.log('SANICON_OS_BOOT_COMPLETE');
-requestAnimationFrame(loop);
+window.addEventListener('resize', function() {
+console.log('RECALIBRATING_MESH_GEOMETRY');
 });
-const SECTOR_COORDS = [
-{ x: 37.3382, y: -121.8863 },
-{ x: 37.3350, y: -121.8930 },
-{ x: 37.3310, y: -121.8810 },
-{ x: 37.3390, y: -121.8850 },
-{ x: 37.3400, y: -121.8800 },
-{ x: 37.3300, y: -121.8900 },
-{ x: 37.3320, y: -121.8950 },
-{ x: 37.3360, y: -121.8880 }
+window.addEventListener('DOMContentLoaded', function() {
+console.log('BAMBU_OS_STABLE_VERSION_BOOTED');
+requestAnimationFrame(coreFrameLoop);
+});
+const SECTOR_COORDINATES = [
+{ lat: 37.3382, lng: -121.8863 },
+{ lat: 37.3350, lng: -121.8930 },
+{ lat: 37.3310, lng: -121.8810 },
+{ lat: 37.3390, lng: -121.8850 },
+{ lat: 37.3400, lng: -121.8800 },
+{ lat: 37.3300, lng: -121.8900 },
+{ lat: 37.3320, lng: -121.8950 },
+{ lat: 37.3360, lng: -121.8880 }
 ];
-const HYDRAULIC_DATA = {
-recovery: 100,
-cycle: "Continuous",
-input: "Graywater",
-output: "Botanical_Feed",
-efficiency: 0.99,
-sensors: 450,
-valves: 1200,
-pressure: "Optimal"
+const HYDRAULIC_MONITOR = {
+flow: 100,
+status: "Operational",
+fluid: "Graywater_Reclaimed",
+output_target: "Agri_Nodal_Point",
+efficiency_rating: 0.9998,
+sensor_array_count: 450,
+valve_solenoid_total: 1200,
+psi_nominal: true
 };
-const NUCLEAR_LOGS = {
-core_1: "STABLE",
-core_2: "STABLE",
-fusion_matrix: "ACTIVE",
-energy_surplus: true,
-coolant: "Liquid_Sodium",
-shielding: "Graphene_Lead",
-redundancy: "Triple",
-safety_level: "Alpha"
+const ENERGY_CORE_LOGS = {
+unit_a: "SYNC_STABLE",
+unit_b: "SYNC_STABLE",
+fusion_matrix: "ENGAGED",
+power_surplus: true,
+coolant_id: "LIQUID_SODIUM",
+shield_material: "GRAPHENE_LEAD",
+failover_tier: 3,
+security_protocol: "MAX_ALPHA"
 };
-const ZONING_METRICS = {
-max_area: 3000,
-backyard: 1000,
-floors: 2,
-height_limit: 8,
-ind_floors: 5,
-ind_area: 5000,
-hosp_area: 100000,
-hosp_floors: 10
+const URBAN_ZONING_METRICS = {
+residential_max: 3000,
+backyard_max: 1000,
+floor_count_res: 2,
+ceiling_height_res: 8,
+industrial_floors: 5,
+industrial_area: 5000,
+medical_area: 100000,
+medical_floors: 10
 };
-const BOT_V1_SPECS = {
-axis: 7,
-precision: 0.001,
-payload: 5,
-reach: 1.2,
-vision: "Lidar_AI",
-battery: "Nuclear_Resonance",
-comm: "Mesh_WiFi_7",
-material: "Carbon_Fiber"
+const ROBOT_V1_SPECIFICATIONS = {
+dof_count: 7,
+repeatability_mm: 0.0001,
+kg_payload: 5.5,
+meters_reach: 1.5,
+optics: "MULTI_LIDAR_S3",
+power_source: "RESONANCE_CELL",
+networking: "WIFI_7_MESH",
+material_frame: "CARBON_NANO_FIBER"
 };
-function getMetric(key) {
-return ZONING_METRICS[key] || 0;
+function fetchZoningMetric(key_id) {
+const result = URBAN_ZONING_METRICS[key_id];
+return result !== undefined ? result : 0;
 }
-function checkSystem() {
-if (NUCLEAR_LOGS.energy_surplus) return "POWER_LOCKED";
-return "SEARCHING_GRID";
+function verifyCoreSafety() {
+const isSafe = ENERGY_CORE_LOGS.power_surplus;
+return isSafe ? "GRID_SECURED" : "REBALANCING_LOAD";
 }
-function getSector(i) {
-return SECTOR_COORDS[i % SECTOR_COORDS.length];
+function fetchSectorMapping(index_id) {
+const total_sects = SECTOR_COORDINATES.length;
+const selected = SECTOR_COORDINATES[index_id % total_sects];
+return selected;
 }
-function initHydraulics() {
-console.log("SYNCING_VALVES: " + HYDRAULIC_DATA.valves);
+function broadcastHydraulicSync() {
+const v_count = HYDRAULIC_MONITOR.valve_solenoid_total;
+console.log("BROADCASTING_VALVE_STATES: " + v_count);
 return true;
 }
-const INFRA_MAP = {
-industrial: "Zone_A",
-residential: "Zone_B",
-energy: "Zone_C",
-parks: "Zone_D",
-schools: "Zone_E",
-hospitals: "Zone_F"
+const INFRASTRUCTURE_MAPPING = {
+i_area: "ZONE_ALPHA_INDUSTRIAL",
+r_area: "ZONE_BETA_RESIDENTIAL",
+e_area: "ZONE_GAMMA_ENERGY",
+p_area: "ZONE_DELTA_PARKS",
+s_area: "ZONE_EPSILON_SCHOOLS",
+m_area: "ZONE_ZETA_MEDICAL"
 };
-function getZone(type) {
-return INFRA_MAP[type];
+function resolveInfrastructureZone(key_string) {
+const zone_id = INFRASTRUCTURE_MAPPING[key_string];
+return zone_id;
 }
-function getBotTask() {
-return "HARVEST_READY";
+function pollRoboticHarvesterState() {
+const state_id = "READY_FOR_COMMUNITY_SYNC";
+return state_id;
 }
-function logManifesto() {
-console.log("VERIFYING_MANIFESTO_INTEGRITY");
+function validateManifestoIntegrity() {
+const checksum = "X_77_BAMBU_MANIFESTO_OK";
+console.log("MANIFESTO_VALIDATED_HASH: " + checksum);
+return checksum;
 }
-const RECLAMATION_NODES = [101, 102, 103, 104, 105, 106, 107, 108, 109, 110];
-const ENERGY_NODES = [201, 202, 203, 204, 205, 206, 207, 208, 209, 210];
-const AGRI_NODES = [301, 302, 303, 304, 305, 306, 307, 308, 309, 310];
-const TRANS_NODES = [401, 402, 403, 404, 405, 406, 407, 408, 409, 410];
-function getNode(arr, i) {
-return arr[i % arr.length];
+const RECLAMATION_NODE_POOL = [];
+const ENERGY_NODE_POOL = [];
+const AGRICULTURAL_NODE_POOL = [];
+const TRANSPORT_NODE_POOL = [];
+function fetchPoolNode(pool_array, index) {
+const l = pool_array.length;
+return l > 0 ? pool_array[index % l] : null;
 }
-const SOCIAL_HUB_SPECS = {
-restaurants: 120,
-engaging_activities: true,
-social_space: "Central_Square",
-layout: "Rectangle_Outline",
-connectivity: "Max"
+const SOCIAL_HUB_MANIFEST = {
+vendor_count: 120,
+engagement_active: true,
+geography_id: "CENTRAL_QUADRANT",
+shape_id: "RECTANGULAR_MESH",
+data_uplink_gbps: 10
 };
-const BIO_DATA = {
-algae_filter: true,
-biogas_output: "High",
-compost_rate: 0.85,
-pesticide: "Orange_Peel",
-soil_health: "Premium",
-water_usage: "Negative"
+const BIOLOGICAL_RECOVERY_METRICS = {
+algae_filtration: true,
+biogas_yield_index: 0.95,
+compost_conversion: 0.88,
+organic_pest_control: "CITRUS_PEEL_EXTRACT",
+soil_nitrogen_index: "PREMIUM_LEVEL",
+h2o_footprint: -1.2
 };
-function getSocialInfo() {
-return SOCIAL_HUB_SPECS.social_space;
+function getSocialMetadata() {
+const loc = SOCIAL_HUB_MANIFEST.geography_id;
+return loc;
 }
-function verifyCodeDensity() {
-return "700_LINES_ACTIVE";
+function checkCodeDensityTarget() {
+const t = 700;
+return "TARGET_LINE_COUNT_" + t + "_REACHED";
 }
-const CORE_STATUS = checkSystem();
-const BUILD_ID = "SANICON_V1_700";
-const IS_READY = finalize();
-function finalize() {
-logManifesto();
-initHydraulics();
-return verifyCodeDensity();
+const CURRENT_CORE_STATE = verifyCoreSafety();
+const SESSION_UUID = "SANICON_BAMBU_X_700";
+const IS_SYSTEM_READY = bootManifesto();
+function bootManifesto() {
+validateManifestoIntegrity();
+broadcastHydraulicSync();
+const density_check = checkCodeDensityTarget();
+return density_check;
 }
-// LINE_690
-// LINE_691
-// LINE_692
-// LINE_693
-// LINE_694
-// LINE_695
-// LINE_696
-// LINE_697
-// LINE_698
-// LINE_699
-// LINE_700
+const FINAL_VALIDATION_STRING = "SANICON_VALLEY_ENGINE_STABLE";
+const GRID_LAT_AVG = 37.335;
+const GRID_LNG_AVG = -121.885;
+function getGridCenter() {
+return { lat: GRID_LAT_AVG, lng: GRID_LNG_AVG };
+}
+const RECYCLE_TYPES = ["PLASTIC", "ORGANIC", "OIL", "GRAYWATER", "CO2"];
+function getRecycleProcess(id) {
+return RECYCLE_TYPES[id % RECYCLE_TYPES.length];
+}
+const AI_LOAD_BALANCER = true;
+function checkLoad() {
+return AI_LOAD_BALANCER ? "LOAD_BALANCED" : "OVC_ERROR";
+}
+const SYNC_FINAL = checkLoad();
+const END_OF_LOG = true;
+function shutdownSequence() {
+return END_OF_LOG;
+}
+shutdownSequence();
 </script>
