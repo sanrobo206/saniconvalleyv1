@@ -1,6 +1,6 @@
 ---
 layout: home
-title: Sanicon Valley v.1 - The Interplanetary Protocol
+title: Sanicon Valley v.1 - The Interplanetary Future City
 ---
 
 <style>
