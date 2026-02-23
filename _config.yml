@@ -1,5 +1,4 @@
-# Minimal config to prevent theme interference
+# Disable Jekyll's automatic theme and processing
+theme: null
 title: Sanicon Valley
-baseurl: "" 
-url: "https://yourusername.github.io"
-# No theme line here
+# This tells 
