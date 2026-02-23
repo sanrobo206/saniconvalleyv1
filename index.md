@@ -1,207 +1,240 @@
 ---
 layout: home
-title: Sanicon Valley v.1
+title: Sanicon Valley v.1 - Interplanetary Core
 ---
 
 <style>
   @import url('https://fonts.googleapis.com');
 
   :root {
-    --blue: #00f2ff;
+    --blue: #00d2ff;
     --green: #00ff88;
     --red: #ff3e3e;
-    --dark: #020205;
+    --space-black: #02040a;
   }
 
   body {
-    background-color: var(--dark);
+    background-color: var(--space-black);
     color: #ffffff;
-    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-family: 'Space Grotesk', sans-serif;
     margin: 0;
     overflow-x: hidden;
+    scroll-behavior: smooth;
   }
 
-  /* Progress HUD */
-  #hud {
-    position: fixed;
-    top: 50%;
-    right: 30px;
-    transform: translateY(-50%);
-    z-index: 100;
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-  }
-  .hud-dot {
-    width: 12px;
-    height: 12px;
-    border-radius: 50%;
-    background: rgba(255,255,255,0.2);
-    border: 2px solid transparent;
-    transition: 0.4s;
-  }
-  .hud-dot.active { background: var(--blue); transform: scale(1.5); box-shadow: 0 0 15px var(--blue); }
-
-  /* Background Gradient Engine */
-  .bg-gradient {
+  /* Fixed Background Starfield & Nebulas */
+  .stars-container {
     position: fixed;
     top: 0; left: 0; width: 100%; height: 100%;
+    z-index: -2;
+    background: radial-gradient(circle at center, #0a0a1a 0%, #02040a 100%);
+  }
+
+  .nebula {
+    position: fixed;
+    width: 80vw; height: 80vh;
+    border-radius: 50%;
+    filter: blur(150px);
     z-index: -1;
     opacity: 0.15;
-    transition: 1.5s ease;
+    transition: all 1.5s cubic-bezier(0.4, 0, 0.2, 1);
   }
 
-  /* Typography Enhancements */
-  h1, h2 { font-family: 'Orbitron', sans-serif; text-transform: uppercase; letter-spacing: 4px; }
-  
-  .hero-title {
-    font-size: clamp(3rem, 12vw, 10rem);
-    font-weight: 900;
-    line-height: 0.8;
-    background: linear-gradient(to bottom, #fff 30%, var(--blue));
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    margin-bottom: 20px;
+  /* Parallax Scrolling Engine */
+  .scroll-wrapper {
+    perspective: 1500px;
+    height: 100vh;
+    overflow-y: auto;
+    overflow-x: hidden;
+    scroll-snap-type: y mandatory;
   }
 
-  /* Animation Classes */
-  .scroll-section {
-    min-height: 100vh;
+  .section-container {
+    height: 100vh;
     display: flex;
-    align-items: center;
     justify-content: center;
-    padding: 100px 10%;
-    box-sizing: border-box;
-    position: relative;
+    align-items: center;
+    scroll-snap-align: start;
+    perspective: 1000px;
   }
 
-  .glass-box {
-    background: rgba(255, 255, 255, 0.03);
-    backdrop-filter: blur(15px);
+  /* Expanding Interplanetary Cards */
+  .sector-card {
+    width: 85%;
+    max-width: 1200px;
+    padding: 100px 80px;
+    background: rgba(255, 255, 255, 0.02);
+    backdrop-filter: blur(30px);
     border: 1px solid rgba(255, 255, 255, 0.1);
-    padding: 60px;
-    border-radius: 40px;
-    max-width: 1000px;
-    transform: translateY(100px) scale(0.9);
+    border-radius: 60px;
+    transform: rotateX(25deg) translateY(150px) scale(0.7);
     opacity: 0;
     transition: all 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+    box-shadow: 0 50px 100px rgba(0,0,0,0.9);
+    position: relative;
+    overflow: hidden;
   }
 
-  .glass-box.visible {
-    transform: translateY(0) scale(1);
+  /* Active State (Triggered by Scroll) */
+  .section-container.active .sector-card {
+    transform: rotateX(0deg) translateY(0) scale(1.05);
     opacity: 1;
+    border-color: var(--accent);
+    box-shadow: 0 0 80px rgba(var(--accent-rgb), 0.15);
   }
 
-  .highlight-blue { color: var(--blue); text-shadow: 0 0 15px rgba(0, 242, 255, 0.4); font-weight: 800; }
-  .highlight-green { color: var(--green); text-shadow: 0 0 15px rgba(0, 255, 136, 0.4); font-weight: 800; }
-  .highlight-red { color: var(--red); text-shadow: 0 0 15px rgba(255, 62, 62, 0.4); font-weight: 800; }
+  /* Text Styling */
+  .sector-card h2 {
+    font-family: 'Orbitron', sans-serif;
+    font-size: clamp(2.5rem, 6vw, 4.5rem);
+    margin-bottom: 40px;
+    text-transform: uppercase;
+    letter-spacing: 6px;
+    color: var(--accent);
+    text-shadow: 0 0 20px rgba(var(--accent-rgb), 0.5);
+  }
 
-  p { font-size: 1.25rem; line-height: 1.8; color: rgba(255,255,255,0.8); margin-bottom: 25px; text-align: justify; }
+  .sector-card p {
+    font-size: 1.45rem;
+    line-height: 1.8;
+    color: rgba(255, 255, 255, 0.85);
+    font-weight: 300;
+    margin-bottom: 30px;
+    text-align: justify;
+  }
 
+  /* Color Schemes */
+  .blue-sector { --accent: var(--blue); --accent-rgb: 0, 210, 255; }
+  .green-sector { --accent: var(--green); --accent-rgb: 0, 255, 136; }
+  .red-sector { --accent: var(--red); --accent-rgb: 255, 62, 62; }
+
+  /* Hero HUD */
+  .hero-text {
+    text-align: center;
+    transform: translateZ(100px);
+  }
+
+  .hero-title {
+    font-family: 'Orbitron', sans-serif;
+    font-size: clamp(4rem, 15vw, 11rem);
+    font-weight: 900;
+    background: linear-gradient(to bottom, #fff 40%, var(--blue));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin: 0;
+  }
+
+  #progress-bar {
+    position: fixed;
+    top: 0; left: 0; height: 4px;
+    background: linear-gradient(90deg, var(--blue), var(--green), var(--red));
+    z-index: 1000;
+    transition: width 0.2s ease;
+  }
 </style>
 
-<!-- Background Layer -->
-<div id="bg-dynamic" class="bg-gradient"></div>
+<div id="progress-bar"></div>
+<div class="stars-container"></div>
+<div id="nebula-bg" class="nebula" style="top: 10%; right: 10%; background: var(--blue);"></div>
 
-<!-- Navigation HUD -->
-<div id="hud">
-  <div class="hud-dot active" data-section="0"></div>
-  <div class="hud-dot" data-section="1"></div>
-  <div class="hud-dot" data-section="2"></div>
-  <div class="hud-dot" data-section="3"></div>
+<div class="scroll-wrapper" id="main-scroll">
+
+  <!-- HERO SECTION -->
+  <section class="section-container active">
+    <div class="hero-text">
+      <div style="border: 1px solid var(--blue); display: inline-block; padding: 10px 30px; border-radius: 50px; margin-bottom: 30px; color: var(--blue); letter-spacing: 5px; font-size: 0.8rem;">SANICON PROTOCOL V.1</div>
+      <h1 class="hero-title">SANICON</h1>
+      <h1 class="hero-title" style="font-size: 0.5em; -webkit-text-fill-color: white; margin-top: -20px;">VALLEY</h1>
+      <p style="margin-top: 40px; opacity: 0.5; letter-spacing: 10px; font-family: 'Orbitron';">INITIATING NAV-SYNC</p>
+    </div>
+  </section>
+
+  <!-- SECTION 1: VISION -->
+  <section class="section-container blue-sector" data-color="var(--blue)">
+    <div class="sector-card">
+      <h2>Sanicon Valley</h2>
+      <p>Welcome to <b>Sanicon Valley</b>, the one and only interplanetary future city, that lies on the great city of San Jose, far more advanced than many other cities in the world. Our city blends advanced technology, with nature, and repurposing waste for the greater good.</p>
+      <p>Sanicon Valley is home to more than 1,000,000 residents, as it is the hub of social, economic, and technological advancement, with the forward thinking system of urban planning, and repurposing waste. We keep our city as simple as possible as we fix the major problem which has never been solved for decades in San Jose, which is to improve our farm to table system.</p>
+    </div>
+  </section>
+
+  <!-- SECTION 2: WATER -->
+  <section class="section-container green-sector" data-color="var(--green)">
+    <div class="sector-card">
+      <h2>Hydraulic Core</h2>
+      <p>There are many problems in San Jose. A major problem is the extreme water shortage. Sanicon Valley not only fixes this problem, but also uses this problem to fix another major problem which is having enough water to keep the plants healthy. We will repurpose shower water which can be used to water the plants, so that the plants will be healthy with less water.</p>
+      <p>Also, every house has a <b>vertical farm</b> in their backyard. This makes sure that everyone has a farm and a grocery store for agriculture in their own backyard. Everyone will have an app in which they can order a robot which will give the amount and kind of fruit or vegetable upon order.</p>
+    </div>
+  </section>
+
+  <!-- SECTION 3: SOCIAL AGRI -->
+  <section class="section-container blue-sector" data-color="var(--blue)">
+    <div class="sector-card">
+      <h2>Community OS</h2>
+      <p>Whenever there is a surplus of fruits or vegetables in a house, then the app will send a notification that there is a surplus and then if the person accepts that they do not want it, then it will notify the entire community that anyone who wants can take it. This ensures that no food is wasted and even the poor can get fruits and vegetables.</p>
+      <p>Also, this enables people to go to each other’s house, communicate, which builds a strong community, which San Jose currently lacks. Our city has little to no carbon footprint.</p>
+    </div>
+  </section>
+
+  <!-- SECTION 4: NET ZERO -->
+  <section class="section-container red-sector" data-color="var(--red)">
+    <div class="sector-card">
+      <h2>Zero-Waste Logic</h2>
+      <p>We trap carbon dioxide and use it for various different purposes, from fizz drinks, dry ice, to plants using it. The reason that this is an interplanetary solution is because the carbon dioxide can be used for purposes like using plants to convert it to oxygen, for air in which you can breathe, and for other uses.</p>
+      <p>We use various different kinds of waste for various different purposes, leaving almost zero net waste. Fruit peels, especially oranges, can be used as an <b>organic pesticide</b>. Also other waste that cannot be used as compost will be used as biogas for the little gas powered cars.</p>
+    </div>
+  </section>
+
+  <!-- SECTION 5: ENERGY -->
+  <section class="section-container green-sector" data-color="var(--green)">
+    <div class="sector-card">
+      <h2>Nuclear Grid</h2>
+      <p>Our way of generating energy is one of the best ways. We use every single possible method: solar energy, hydroelectric power from every water body, and wind turbines installed in extremely windy areas. But the anchor of this city is <b>nuclear energy</b>.</p>
+      <p>The nuclear energy plants will be located in areas which have extremely less population. Just two plants are enough to power the entire Sanicon Valley. This will be the main source of energy, as AI will be heavily used and it needs a lot of energy.</p>
+    </div>
+  </section>
+
+  <!-- SECTION 6: ZONING -->
+  <section class="section-container red-sector" data-color="var(--red)">
+    <div class="sector-card">
+      <h2>Urban Zoning</h2>
+      <p>Hospitals will be really big so that more people can be treated at once reducing the wait time. The maximum area is 100,000 square feet, along with the maximum floors being 10 floors. Just 5 of these hospitals is enough to handle the whole Sanicon Valley at once.</p>
+      <p>The benefits of these zoning laws is that there is a lot of space for schools which is enough to have almost every single kid having access to education. Some space will be left for parks. Now the remaining space will be used for energy generation.</p>
+    </div>
+  </section>
+
+  <footer style="height: 50vh; display: flex; align-items: center; justify-content: center; opacity: 0.2; letter-spacing: 10px; font-family: 'Orbitron'; font-size: 0.8rem;">
+    END OF TRANSMISSION // 2026
+  </footer>
+
 </div>
 
-<!-- Hero Section -->
-<section class="scroll-section">
-  <div style="text-align: center;">
-    <p style="text-transform: uppercase; letter-spacing: 12px; color: var(--blue);">Sector 01: The Launch</p>
-    <h1 class="hero-title">SANICON<br>VALLEY</h1>
-    <p style="font-size: 1.5rem; letter-spacing: 5px;">THE INTERPLANETARY FUTURE CITY</p>
-  </div>
-</section>
-
-<!-- Section 1: The Vision -->
-<section class="scroll-section" data-color="var(--blue)">
-  <div class="glass-box">
-    <h2 class="highlight-blue">A New San Jose</h2>
-    <p>Welcome to <strong>Sanicon Valley</strong>, the definitive interplanetary city. Nestled within the footprint of San Jose, this metropolis exists as the most advanced urban center on Earth. Our city represents a radical fusion of high-technology, natural preservation, and a philosophy of total waste repurposing.</p>
-    <p>Home to over <span class="highlight-blue">1,000,000 residents</span>, Sanicon Valley serves as a global hub for social and technological evolution. We solve the decades-old inefficiencies of San Jose by implementing a sophisticated <strong>farm-to-table</strong> logistics system and intelligent urban planning.</p>
-  </div>
-</section>
-
-<!-- Section 2: Hydro & Agriculture -->
-<section class="scroll-section" data-color="var(--green)">
-  <div class="glass-box" style="border-left: 4px solid var(--green);">
-    <h2 class="highlight-green">Hydraulic Sustainability</h2>
-    <p>San Jose has long suffered from water shortages. Sanicon Valley eliminates this crisis. We utilize an <strong>integrated greywater system</strong>; every drop of water from showers and taps is filtered and redirected to nourish the city’s vegetation.</p>
-    <p>Every residence features a <span class="highlight-green">Personal Vertical Farm</span>. Agriculture is no longer distant—it is in your backyard. Residents use a unified OS to deploy robotic harvesters. When a surplus occurs, the system triggers a community-wide notification, allowing those in need to claim fresh produce for free. This fosters the deep human connection San Jose has lacked for years.</p>
-  </div>
-</section>
-
-<!-- Section 3: Zero Waste -->
-<section class="scroll-section" data-color="var(--blue)">
-  <div class="glass-box">
-    <h2 class="highlight-blue">Atmospheric Engineering</h2>
-    <p>We boast a <span class="highlight-blue">Zero Carbon Footprint</span>. By trapping CO2, we create dry ice, carbonated beverages, and oxygen for interplanetary life support. Our waste management is absolute: food waste becomes high-grade compost, cooking oils are refined into organic soaps, and non-compostables are converted into <strong>biogas</strong> for our light-vehicle fleet.</p>
-    <p>Even orange peels are repurposed into organic pesticides, ensuring that "waste" is a concept left in the 20th century.</p>
-  </div>
-</section>
-
-<!-- Section 4: Urban Logistics -->
-<section class="scroll-section" data-color="var(--red)">
-  <div class="glass-box" style="border-left: 4px solid var(--red);">
-    <h2 class="highlight-red">Automated Society</h2>
-    <p>By moving agriculture to backyards, we have deleted supermarkets. These vacated spaces are now lush parks and social squares. We have replaced the intrusive footprint of trains with automated buses and biogas cars. Because every manual task is <strong>fully automated</strong>, our citizens are free to pursue education, art, and community growth.</p>
-    <p>To solve global plastic pollution, Sanicon Valley uses <span class="highlight-red">Plastic-Eating Bacteria</span>. All packaging is uniform; once discarded into specialized local bins, the bacteria decompose the polymers instantly. There are no landfills here.</p>
-  </div>
-</section>
-
-<!-- Section 5: The Energy Core -->
-<section class="scroll-section" data-color="var(--green)">
-  <div class="glass-box">
-    <h2 class="highlight-green">Interplanetary Energy</h2>
-    <p>Our power grid is a symphony of sources: Solar roofs, hydroelectric waterways, and wind turbine corridors. However, our main engine is <strong>Nuclear Fusion</strong>. Two secure, high-capacity plants power the entire valley, providing the massive energy required to sustain our advanced AI infrastructure.</p>
-  </div>
-</section>
-
-<!-- Section 6: Zoning & Infrastructure -->
-<section class="scroll-section" data-color="var(--red)">
-  <div class="glass-box" style="border-left: 4px solid var(--red);">
-    <h2 class="highlight-red">The Final Blueprint</h2>
-    <p>Residential life is optimized. Each home supports a robotic assistant that allows for <strong>simulated visitors</strong> and instant communication without the need for a handheld phone. Zoning is strict: new homes are limited to 3,000 sq ft to ensure maximum efficiency. Hospitals are massive, 10-floor hubs capable of treating thousands simultaneously, eliminating wait times entirely.</p>
-    <p>Through these zoning laws, we have reclaimed the Earth. Space is allocated with precision: for schools, for parks, and for the energy plants that fuel the <strong>interplanetary future</strong>.</p>
-  </div>
-</section>
-
 <script>
-  // Intersection Observer for Animations
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add('visible');
-        
-        // Update background color based on section
-        const color = entry.target.parentElement.getAttribute('data-color');
-        if (color) {
-          document.getElementById('bg-dynamic').style.boxShadow = `inset 0 0 300px ${color}`;
-          document.getElementById('bg-dynamic').style.background = color;
-        }
-      }
-    });
-  }, { threshold: 0.3 });
+  const scrollWrapper = document.getElementById('main-scroll');
+  const progressBar = document.getElementById('progress-bar');
+  const sections = document.querySelectorAll('.section-container');
+  const nebula = document.getElementById('nebula-bg');
 
-  document.querySelectorAll('.glass-box').forEach(box => observer.observe(box));
+  scrollWrapper.addEventListener('scroll', () => {
+    // Update Progress Bar
+    const totalHeight = scrollWrapper.scrollHeight - scrollWrapper.clientHeight;
+    const progress = (scrollWrapper.scrollTop / totalHeight) * 100;
+    progressBar.style.width = progress + '%';
 
-  // HUD Update on Scroll
-  window.addEventListener('scroll', () => {
-    const sections = document.querySelectorAll('.scroll-section');
-    const dots = document.querySelectorAll('.hud-dot');
-    
-    sections.forEach((section, i) => {
+    // Intersection Logic for Parallax Cards
+    sections.forEach(section => {
       const rect = section.getBoundingClientRect();
-      if (rect.top < window.innerHeight/2 && rect.bottom > window.innerHeight/2) {
-        dots.forEach(d => d.classList.remove('active'));
-        if(dots[i]) dots[i].classList.add('active');
+      if (rect.top < window.innerHeight / 2 && rect.bottom > window.innerHeight / 2) {
+        section.classList.add('active');
+        
+        // Update Nebula Background Color
+        const color = section.getAttribute('data-color');
+        if (color) {
+          nebula.style.background = color;
+          nebula.style.transform = `translate(${rect.top / 10}px, ${rect.top / 10}px)`;
+        }
+      } else {
+        section.classList.remove('active');
       }
     });
   });
