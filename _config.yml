@@ -1,0 +1,15 @@
+title: Sanatan - Sanicon Valley
+email: your-email@example.com
+description: >-
+  The Interplanetary Future City - A vision of San Jose repurposed 
+  for a sustainable, automated, and interconnected future.
+baseurl: "/saniconvalleyv1" # Critical for github.io sub-project
+url: "https://sanrobo206.github.io"
+
+theme: minima
+plugins:
+  - jekyll-feed
+
+# Custom Metadata
+author: Sanatan Sinha
+city: San Jose / Sanicon Valley
