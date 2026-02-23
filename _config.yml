@@ -1,27 +1,7 @@
-# Disable Jekyll's automatic theme and processing
-# This ensures your index.html is served exactly as written
 theme: null
-remote_theme: null
-
-# Prevents Jekyll from treating your HTML as a template
-markdown: kramdown
-highlighter: none
-
-# Basic Site Info
 title: Sanicon Valley
-description: The Interplanetary Future City
-
-# Explicitly include hidden files if you ever add them
-include:
-  - .htaccess
-  - .nojekyll
-
-# Exclude unnecessary files from the build
-exclude:
-  - Gemfile
-  - Gemfile.lock
-  - node_modules
-  - vendor/bundle/
-  - vendor/cache/
-  - vendor/gems/
-  - vendor/ruby/
+# This disables the default Jekyll engine processing
+markdown: kramdown
+kramdown:
+  syntax_highlighter_opts:
+    disable: true
