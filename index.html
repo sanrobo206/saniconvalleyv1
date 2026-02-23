@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sanicon Valley — Interplanetary Future City</title>
+    <title>Sanicon Valley — Interplanetary Manifesto</title>
     <style>
         @import url('https://fonts.googleapis.com');
 
@@ -11,7 +11,7 @@
             --bambu: #00E676;
             --electric: #2979FF;
             --nuclear: #FFEA00;
-            --carbon: #0a0a0a;
+            --carbon: #050505;
             --white: #ffffff;
         }
 
@@ -25,145 +25,184 @@
             width: 100vw;
         }
 
-        /* Full Screen Hero */
-        .hero {
-            height: 100vh;
+        /* Fixed Background HUD Scanlines */
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), 
+                        linear-gradient(90deg, rgba(0, 230, 118, 0.03), rgba(0, 0, 0, 0));
+            background-size: 100% 4px, 100% 100%;
+            pointer-events: none;
+            z-index: 10;
+        }
+
+        .hud-nav {
+            position: fixed;
+            top: 0; width: 100%;
+            text-align: center;
+            padding: 15px;
+            font-family: 'Orbitron';
+            background: rgba(0,0,0,0.95);
+            border-bottom: 2px solid var(--bambu);
+            z-index: 1000;
+            letter-spacing: 5px;
+            color: var(--bambu);
+            text-shadow: 0 0 10px var(--bambu);
+        }
+
+        .container {
             width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 120px 20px;
+        }
+
+        /* Header Animation */
+        .hero {
+            height: 80vh;
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
             text-align: center;
-            border-bottom: 4px solid var(--bambu);
-            background: radial-gradient(circle, #111 0%, #000 100%);
         }
 
         h1 {
             font-family: 'Orbitron';
-            font-size: clamp(3rem, 12vw, 8rem);
+            font-size: clamp(3.5rem, 12vw, 8rem);
             color: var(--bambu);
-            text-shadow: 0 0 30px rgba(0, 230, 118, 0.6);
+            text-shadow: 0 0 20px var(--bambu);
             margin-bottom: 10px;
-            animation: pulse 2s infinite alternate;
+            animation: glitch 3s infinite alternate;
         }
 
-        @keyframes pulse {
-            from { transform: scale(1); text-shadow: 0 0 20px var(--bambu); }
-            to { transform: scale(1.02); text-shadow: 0 0 50px var(--bambu); }
+        @keyframes glitch {
+            0% { text-shadow: 2px 0 var(--electric), -2px 0 var(--bambu); }
+            50% { text-shadow: -2px 0 var(--nuclear), 2px 0 var(--electric); }
+            100% { text-shadow: 2px 0 var(--bambu), -2px 0 var(--nuclear); }
         }
 
-        /* Section Styling */
-        section {
-            padding: 100px 5%;
-            min-height: 80vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            border-bottom: 1px solid #222;
-        }
-
-        .content-card {
-            max-width: 1100px;
-            margin: 0 auto;
-            background: rgba(255,255,255,0.03);
-            padding: 50px;
-            border-radius: 20px;
-            border-left: 10px solid var(--electric);
+        /* Static Text Blocks with Kinetic Borders */
+        .card {
+            margin-bottom: 100px;
+            background: rgba(255,255,255,0.02);
+            padding: 60px;
+            border-radius: 5px;
+            border: 1px solid #222;
+            position: relative;
+            overflow: hidden;
             transition: 0.3s;
         }
 
-        .content-card:hover {
-            background: rgba(255,255,255,0.06);
-            border-left-color: var(--bambu);
-            transform: translateX(10px);
+        /* Pulsing Glow Border - No movement, just light */
+        .card::after {
+            content: "";
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            border: 2px solid var(--electric);
+            opacity: 0.3;
+            animation: border-pulse 4s infinite ease-in-out;
+        }
+
+        @keyframes border-pulse {
+            0%, 100% { border-color: var(--electric); box-shadow: inset 0 0 10px var(--electric); }
+            50% { border-color: var(--bambu); box-shadow: inset 0 0 30px var(--bambu); }
         }
 
         h2 {
             font-family: 'Orbitron';
-            font-size: 2.5rem;
-            color: var(--electric);
+            font-size: 2.2rem;
+            color: var(--bambu);
             margin-bottom: 30px;
-            text-transform: uppercase;
+            letter-spacing: 3px;
+            border-bottom: 1px solid #333;
+            padding-bottom: 10px;
         }
 
         p {
-            font-size: 1.3rem;
+            font-size: 1.25rem;
             line-height: 1.8;
-            color: #ddd;
+            color: #efefef;
             margin-bottom: 25px;
+            position: relative;
+            z-index: 5;
         }
 
-        .nuclear-card { border-left-color: var(--nuclear) !important; }
-        .nuclear-card h2 { color: var(--nuclear) !important; text-shadow: 0 0 15px var(--nuclear); }
+        /* Nuclear High Intensity Section */
+        .nuke-card::after {
+            animation: nuke-pulse 2s infinite ease-in-out !important;
+        }
 
-        .highlight { color: var(--bambu); font-weight: 700; }
+        @keyframes nuke-pulse {
+            0% { border-color: var(--nuclear); box-shadow: inset 0 0 0px var(--nuclear); }
+            50% { border-color: #fff; box-shadow: inset 0 0 50px var(--nuclear), 0 0 20px var(--nuclear); }
+            100% { border-color: var(--nuclear); box-shadow: inset 0 0 0px var(--nuclear); }
+        }
 
         footer {
-            padding: 80px;
+            padding: 100px;
             text-align: center;
             font-family: 'Orbitron';
-            background: #000;
-            color: #444;
-            letter-spacing: 5px;
+            color: #333;
+            letter-spacing: 10px;
         }
     </style>
 </head>
 <body>
 
-    <!-- HERO SECTION -->
-    <div class="hero">
-        <p style="letter-spacing: 10px; color: var(--electric); font-weight: 900;">SYSTEM STATUS: ACTIVE</p>
-        <h1>Sanicon Valley</h1>
-        <p style="font-size: 1.5rem; color: #888; font-family: 'Orbitron';">The Interplanetary Future City</p>
-        <div style="margin-top: 40px; border: 1px solid var(--bambu); padding: 10px 30px; color: var(--bambu); font-family: 'Orbitron'; font-size: 0.8rem;">SCROLL TO ENTER</div>
+    <nav class="hud-nav">SANICON VALLEY // INTERPLANETARY UPLINK // ACTIVE</nav>
+
+    <div class="container">
+        
+        <header class="hero">
+            <h1>Sanicon Valley</h1>
+            <p style="font-family:'Orbitron'; color: var(--electric); letter-spacing: 5px;">The interplanetary Future City</p>
+        </header>
+
+        <!-- VERBATIM TEXT SEGMENTS -->
+
+        <section class="card">
+            <h2>I. CORE HUB</h2>
+            <p>Welcome to Sanicon Valley, the one and only interplanetary future city, that lies on the great city of San Jose, far more advanced than many other cities in the world. Our city blends advanced technology, with nature, and repurposing waste for the greater good. Sanicon Valley is home to more than 1,000,000 residents, as it is the hub of social, economic, and technological advancement, with the forward thinking system of urban planning, and repurposing waste. Our city uses advanced technology to repurpose all kinds of waste to useful nutrients, energy, fuel, and more. We keep our city as simple as possible as we fix the major problem which has never been solved for decades in San Jose, which is to improve our farm to table system.</p>
+        </section>
+
+        <section class="card">
+            <h2>II. BIO-RECLAMATION</h2>
+            <p>There are many problems in San Jose. A major problem is the extreme water shortage in San Jose. Sanicon Valley not only fixes this problem, but also uses this problem to fix another major problem which is having enough water to keep the plants healthy. We will repurpose shower water which can be used to water the plants, so that the plants will be healthy with less water. Also, every house has a vertical farm in their backyard. This makes sure that everyone has a farm and a grocery store for agriculture in their own backyard. Everyone will have an app in which they can order a robot which will give the amount and kind of fruit or vegetable upon order. Whenever there is a surplus of fruits or vegetables in a house, then the app will send a notification that there is a surplus and then if the person accepts that they do not want it, then it will notify the entire community that anyone who wants can take it. This ensures that no food is wasted and even the poor can get fruits and vegetables. Also, this enables people to go to each other’s house, communicate, which builds a strong community, which San Jose currently lacks.</p>
+        </section>
+
+        <section class="card">
+            <h2>III. CARBON & WASTE</h2>
+            <p>Our city has little to no carbon footprint. This is because we trap carbon dioxide and use it for various different purposes, from fizz drinks, dry ice, to plants using it. The reason that this is an interplanetary solution is because the carbon dioxide can be used for various purposes like using plants to convert it to oxygen, for air in which you can breathe, and for other uses. We use various different kinds of waste for various different purposes, leaving almost zero net waste. For example we will use remaining food waste as compost, and remove some food remains from cooking oil which will be compost, while the remaining oil will be cleaned and used for soaps. Also other waste that cannot be used as compost, and has little to no nutrition will be used as biogas which will be used for the little gas powered cars. Fruit peels, especially oranges can be used as an organic pesticide.</p>
+        </section>
+
+        <section class="card">
+            <h2>IV. AUTOMATION & ZONING</h2>
+            <p>In our city, there will be no supermarkets/grocery stores for fruits and vegetables, as every backyard is a farm. The only food items that will be sold will be meat, snacks, and drinks. This means that there is more space for recreational areas, and squares where people can meet together. This brings a stronger sense of community. Also, there will be zero farms, because every backyard is a farm. This makes more space for other important areas like, industrial areas, schools, and parks. For transportation the car and the bus are used. The train is not used because it takes too much space and it is limited to only a few areas. Every industry that involves manual labor will be automated, meaning that no one has to do that kind of work.</p>
+            <p>Another problem which is worldwide is the effects of the traditional packaging methods. Now, Sanicon Valley still uses plastic as the packaging method, but there is a new innovation that solves pollution. There will be a law in which everyone has to throw away the plastic waste in a certain area and if they do not follow it, they will be heavily fined. This area is special, because it does not go to landfills, or even gets transported. In that bin, there will be plastic eating bacteria, which will almost immediately decompose the plastic allowing there to be practically no plastic waste. Every single package will be made out of plastic.</p>
+        </section>
+
+        <section class="card nuke-card">
+            <h2 style="color:var(--nuclear)">V. NUCLEAR ENERGY</h2>
+            <p>Our way of generating energy is one of the best ways. We do not just use one method, we use every single possible method. We use solar energy which is mainly for houses, and electric vehicle charging stations. We will use every single water body in our area for hydroelectric power. Lastly we will use wind turbines, which will be commonly installed in extremely windy areas. One energy solution which makes this city interplanetary is nuclear energy. The nuclear energy plants will be located in areas which have extremely less population. There will be only two plants, because that is enough to power the entire Sanicon Valley. This will be the main source of energy, as AI will be heavily used and it needs a lot of energy.</p>
+        </section>
+
+        <section class="card">
+            <h2>VI. THE HOUSEHOLD BOTS</h2>
+            <p>A major part of the residential area is the layout of the average house. Each house will look the same as the houses in San Jose but there is a major difference. Every house will have one robot for the backyard. Another robot is optional and will be for helping with the household tasks and has the ability to communicate with other bots. Just by sitting, and without needing a phone, you can use the bot to instantly talk to anyone you want. It is like having a simulated visitor. You can also instantly order the bot to tell the backyard bot to give fruits or vegetables to the person you are talking to, virtually. The backyard has a vertical farm which has an enormous variety of fruits. These fruits use the shower and wasted tap water. Also after eating the fruits, the bot takes the remaining peel and uses it as compost, or uses the seed to grow another of that kind of plant. There is no sewage system, as the toilets and the shower drain are connected to a pipe which later goes to individual plants.</p>
+        </section>
+
+        <section class="card">
+            <h2>VII. ZONING LAWS & SOCIALIZATION</h2>
+            <p>Now, this city has a very strict zoning law. All of the existing houses can stay as it is, but every new house can have a maximum area of 3,000 square feet excluding the backyard, and the backyard will have a maximum area of 1,000 square feet. The maximum height of the house is two floors, with each floor being max, 8 feet. This is because our city is trying to make every house just the minimum size needed, so that there is more space for other major infrastructure, especially space for energy plants. For the industrial zone, the maximum floors are 5 floors, each floor having a height of 10 feet along with the maximum area being 5,000 square feet. No industrial building will need more space than that. Hospitals will be really big so that more people can be treated at once reducing the wait time. The maximum area is 100,000 square feet, along with the maximum floors being 10 floors, with each floor being 10 feet high. Just 5 of these hospitals is enough to handle the whole Sanicon Valley at once.</p>
+            <p>The benefits of these zoning laws is that there is a lot of space for schools which is enough to have almost every single kid having the access to education. Some space will be left for parks. Now the remaining space will be used for energy generation. Some space is for wind turbines, solar panels, and the majority of the space is for the nuclear power plants which will be secured and will be the farthest from the industries and the residential areas.</p>
+            <p>The way that offices or small companies will be placed is the perfect way for socialization. The offices will be close by and it will be so that people can roam through different offices, and can see what is going on in the area. This makes everything more engaging and enables people to communicate with different small businesses so that they can combine ideas, making better ideas. These companies will be placed such that it is on the outline of a rectangle meaning that the center is a square where there are many restaurants, and various engaging activities, along with space for people to socialize. If people get bored, then they can take a peek on what the businesses are doing.</p>
+        </section>
+
     </div>
 
-    <!-- 1: INTRODUCTION -->
-    <section>
-        <div class="content-card">
-            <h2>The Hub of Advancement</h2>
-            <p>Welcome to <span class="highlight">Sanicon Valley</span>, the one and only interplanetary future city, that lies on the great city of San Jose, far more advanced than many other cities in the world. Our city blends advanced technology with nature and repurposing waste for the greater good.</p>
-            <p>Sanicon Valley is home to more than 1,000,000 residents, as it is the hub of social, economic, and technological advancement, with the forward-thinking system of urban planning and repurposing waste. We fix the major problem which has never been solved for decades in San Jose: improving our <span class="highlight">farm to table system</span>.</p>
-        </div>
-    </section>
-
-    <!-- 2: WATER & FARMING -->
-    <section>
-        <div class="content-card">
-            <h2>Vertical Agriculture</h2>
-            <p>Sanicon Valley not only fixes the extreme water shortage but also uses it to keep plants healthy. We repurpose <span class="highlight">shower water</span> to sustain vertical backyard farms. This ensures every house has a private grocery store in their own backyard.</p>
-            <p>Citizens use an app to order robotic delivery of fresh produce. Surplus notifications build a strong community bond that San Jose currently lacks, ensuring no food is wasted and even the poor can access nutrition.</p>
-        </div>
-    </section>
-
-    <!-- 3: CARBON & WASTE -->
-    <section>
-        <div class="content-card">
-            <h2>Zero Footprint</h2>
-            <p>We trap carbon dioxide for fizz drinks, dry ice, and oxygen conversion. This interplanetary solution converts waste into useful nutrients, energy, and fuel. Remaining food waste becomes compost, and cooking oil is repurposed into <span class="highlight">soaps</span>.</p>
-            <p>Plastic-eating bacteria in special bins decompose waste immediately, leaving practically zero net waste. Fruit peels, especially oranges, serve as organic pesticides for our local crops.</p>
-        </div>
-    </section>
-
-    <!-- 4: NUCLEAR ENERGY -->
-    <section>
-        <div class="content-card nuclear-card">
-            <h2>Interplanetary Power</h2>
-            <p>We use every possible method: solar for houses, hydroelectric for water bodies, and wind turbines. But our core solution is <span class="highlight">Nuclear Energy</span>. Just two plants power the entire Sanicon Valley.</p>
-            <p>Located in low-population areas, these plants provide the massive energy required for our heavy AI infrastructure, ensuring a zero-carbon footprint across the grid.</p>
-        </div>
-    </section>
-
-    <!-- 5: RESIDENTIAL & ZONING -->
-    <section>
-        <div class="content-card">
-            <h2>Urban Matrix</h2>
-            <p>Every home features a backyard bot and an optional household assistant for simulated visitor interactions. Our strict zoning laws cap new homes at 3,000 sq ft to maximize space for <span class="highlight">energy plants, schools, and parks</span>.</p>
-            <p>Manual labor is fully automated. Offices are arranged in rectangles around social squares, fostering spontaneous communication and the birth of better ideas. This is the blueprint for the interplanetary future.</p>
-        </div>
-    </section>
-
-    <footer>SANICON VALLEY // FINAL BUILD // CORE DISPATCH</footer>
+    <footer>SANICON VALLEY // TRANSMISSION COMPLETE</footer>
 
 </body>
 </html>
