@@ -16,6 +16,165 @@
         }
 
         * { box-sizing: border-box; margin: 0; padding: 0; }
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sanicon Valley — Interplanetary Manifesto</title>
+    <style>
+        @import url('https://fonts.googleapis.com');
+
+        :root {
+            --bambu: #00E676;
+            --electric: #2979FF;
+            --nuclear: #FFEA00;
+            --carbon: #050505;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body, html {
+            background-color: var(--carbon);
+            color: white;
+            font-family: 'Inter', sans-serif;
+            overflow-x: hidden;
+            width: 100%;
+        }
+
+        /* Fixed HUD */
+        .top-nav {
+            position: fixed;
+            top: 0; width: 100%;
+            text-align: center;
+            padding: 20px 0;
+            font-family: 'Orbitron';
+            font-size: 0.8rem;
+            letter-spacing: 5px;
+            background: rgba(0,0,0,0.95);
+            border-bottom: 2px solid var(--bambu);
+            z-index: 1000;
+        }
+
+        /* Scroll Engine */
+        .scroll-container { height: 12000px; position: relative; }
+
+        .viewport {
+            position: sticky;
+            top: 0;
+            height: 100vh;
+            width: 100vw;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* Centered Manifesto Blocks */
+        .block {
+            position: absolute;
+            width: 90%;
+            max-width: 850px;
+            text-align: center;
+            opacity: 0;
+            transform: translateY(80px); /* Start lower */
+            pointer-events: none;
+            transition: opacity 0.4s ease, transform 0.4s ease;
+        }
+
+        h1 {
+            font-family: 'Orbitron';
+            font-size: clamp(2.5rem, 8vw, 5rem);
+            color: var(--bambu);
+            margin-bottom: 20px;
+            text-shadow: 0 0 30px rgba(0, 230, 118, 0.4);
+        }
+
+        h2 {
+            font-family: 'Orbitron';
+            font-size: clamp(1.8rem, 4vw, 2.5rem);
+            color: var(--electric);
+            margin-bottom: 15px;
+        }
+
+        p {
+            font-size: clamp(1rem, 1.8vw, 1.4rem);
+            line-height: 1.7;
+            color: #ddd;
+            margin-bottom: 15px;
+        }
+
+        .highlight { color: var(--electric); font-weight: 700; }
+        .nuclear { color: var(--nuclear); text-shadow: 0 0 20px var(--nuclear); }
+
+    </style>
+</head>
+<body>
+
+    <nav class="top-nav">SANICON VALLEY // SYSTEM STATUS: ACTIVE</nav>
+
+    <div class="scroll-container">
+        <div class="viewport">
+
+            <div class="block" id="b0">
+                <h1>Sanicon Valley</h1>
+                <p style="letter-spacing: 5px; color: var(--electric);">THE INTERPLANETARY FUTURE CITY</p>
+                <p>Welcome to <b>Sanicon Valley</b>, the one and only interplanetary future city. Far more advanced than many other cities, we blend technology with nature, repurposing waste for the greater good.</p>
+            </div>
+
+            <div class="block" id="b1">
+                <h2>Vertical Farming</h2>
+                <p>We repurpose <span class="highlight">shower water</span> to keep plants healthy. Every house has a vertical farm in the backyard—your own personal grocery store for agriculture.</p>
+                <p>Order fresh produce via a community app and robot delivery, ensuring zero food waste.</p>
+            </div>
+
+            <div class="block" id="b2">
+                <h2 class="nuclear">Nuclear Energy</h2>
+                <p>Our main energy source is <span class="nuclear">Nuclear Power</span>. Just two plants power the whole Valley, providing the massive energy needed for our AI-driven infrastructure.</p>
+            </div>
+
+            <div class="block" id="b3">
+                <h2>Interplanetary Solutions</h2>
+                <p>We trap CO2 for fizz drinks and oxygen conversion. Plastic-eating bacteria eliminate pollution instantly, leaving almost zero net waste.</p>
+            </div>
+
+            <div class="block" id="b4">
+                <h2>The Robotic Future</h2>
+                <p>Use bots to communicate and share produce instantly. Socialize in central squares designed for innovative growth. Welcome to the future of urban planning.</p>
+            </div>
+
+        </div>
+    </div>
+
+    <script>
+        const blocks = document.querySelectorAll('.block');
+        const step = 2000;
+
+        window.addEventListener('scroll', () => {
+            const scrolled = window.pageYOffset;
+
+            blocks.forEach((block, i) => {
+                const start = i * step;
+                const end = start + step;
+                
+                if (scrolled >= start && scrolled < end) {
+                    let progress = (scrolled - start) / step;
+                    
+                    // Smooth Fade In/Out
+                    block.style.opacity = progress < 0.2 ? progress * 5 : progress > 0.8 ? (1 - progress) * 5 : 1;
+                    
+                    // Smooth Rise Animation
+                    let yPos = (1 - progress) * 100 - 50; 
+                    block.style.transform = `translateY(${yPos}px)`;
+                    block.style.pointerEvents = "auto";
+                } else {
+                    block.style.opacity = "0";
+                    block.style.pointerEvents = "none";
+                }
+            });
+        });
+    </script>
+</body>
+</html>
 
         body, html {
             background-color: var(--carbon);
