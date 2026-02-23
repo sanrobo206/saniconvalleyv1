@@ -1,13 +1,6 @@
 title: Sanicon Valley v.1
-email: sanatan@example.com
-description: "The Interplanetary Future City: Redefining San Jose."
 baseurl: "/saniconvalleyv1"
 url: "https://sanrobo206.github.io"
-
-# High-Performance Settings
-incremental: true
-highlighter: rouge
-markdown: kramdown
-kramdown:
-  input: GFM
-  hard_wrap: false
+theme: minima
+plugins:
+  - jekyll-feed
