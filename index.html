@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sanicon Valley | Interplanetary Masterplan</title>
+    <title>SANICON VALLEY | INTERPLANETARY COMMAND</title>
     <style>
         @import url('https://fonts.googleapis.com');
 
@@ -11,12 +11,11 @@
             --bambu: #00E676;
             --electric: #2979FF;
             --nuclear: #FFEA00;
-            --carbon: #020202;
+            --carbon: #000000;
             --glass: rgba(255, 255, 255, 0.03);
-            --nuke-glow: 0 0 20px #FFEA00, 0 0 50px rgba(255, 234, 0, 0.5);
         }
 
-        * { box-sizing: border-box; margin: 0; padding: 0; cursor: crosshair; }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
 
         body, html {
             background-color: var(--carbon);
@@ -24,200 +23,244 @@
             font-family: 'Inter', sans-serif;
             overflow-x: hidden;
             width: 100vw;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
+            perspective: 1500px; /* 3D Depth Base */
         }
 
-        /* --- HYPER-CENTERED NAV --- */
-        .nav-hud {
+        /* --- FIXED HUD OVERLAY --- */
+        .hud-ui {
             position: fixed;
-            top: 0; width: 100%;
-            display: flex; justify-content: center;
-            padding: 30px;
-            background: linear-gradient(to bottom, rgba(0,0,0,0.9), transparent);
+            top: 0; left: 0; width: 100%; height: 100%;
+            pointer-events: none;
             z-index: 1000;
-            font-family: 'Orbitron';
-            letter-spacing: 5px;
-            text-transform: uppercase;
-            font-size: 0.8rem;
-            color: var(--electric);
+            border: 20px solid transparent;
+            border-image: radial-gradient(circle, var(--electric) 1%, transparent 20%) 1;
+            opacity: 0.3;
         }
 
-        /* --- SCI-FI HERO --- */
-        .hero {
-            height: 100vh; width: 100vw;
-            display: flex; flex-direction: column; justify-content: center; align-items: center;
-            text-align: center; perspective: 1000px;
-        }
-
-        .hero h1 {
-            font-family: 'Orbitron', sans-serif;
-            font-size: clamp(3rem, 15vw, 10rem);
-            background: linear-gradient(to bottom, #fff 30%, var(--bambu) 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            filter: drop-shadow(0 0 30px rgba(0, 230, 118, 0.3));
-            margin-bottom: 10px;
-        }
-
-        /* --- ADVANCED ZOOM ENGINE --- */
-        .scroll-stage { height: 500vh; width: 100vw; position: relative; }
-
-        .sticky-box {
-            position: sticky; top: 0; height: 100vh; width: 100vw;
-            display: flex; justify-content: center; align-items: center;
-            background: #000; overflow: hidden;
-        }
-
-        .hud-diagram {
-            width: 100%; height: 100%;
-            transform: scale(1) rotateX(0deg);
-            transition: transform 0.1s linear, opacity 0.3s ease;
-        }
-
-        /* --- GLASSMORPHIC CONTENT CARDS --- */
-        .manifesto-flow {
-            padding: 0 5% 200px 5%;
-            width: 100%;
-            display: flex; flex-direction: column; align-items: center;
-            background: var(--carbon);
-        }
-
-        .glass-card {
-            width: 100%; max-width: 1000px;
-            margin-bottom: 400px;
-            padding: 80px 50px;
-            background: var(--glass);
-            backdrop-filter: blur(20px);
-            border: 1px solid rgba(255,255,255,0.1);
-            border-radius: 2px;
-            opacity: 0; transform: translateY(150px) scale(0.9);
-            transition: all 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+        .nav-center {
+            position: fixed;
+            top: 30px; width: 100%;
             text-align: center;
-            box-shadow: 0 40px 100px rgba(0,0,0,0.5);
-        }
-
-        .glass-card.active { opacity: 1; transform: translateY(0) scale(1); }
-
-        .glass-card h2 {
             font-family: 'Orbitron';
-            font-size: clamp(2rem, 5vw, 4rem);
-            margin-bottom: 40px;
+            letter-spacing: 10px;
             color: var(--bambu);
-            text-shadow: 0 0 20px rgba(0, 230, 118, 0.4);
+            z-index: 1100;
+            text-transform: uppercase;
+            font-size: 0.9rem;
+            text-shadow: 0 0 20px var(--bambu);
         }
 
-        .nuke-header { color: var(--nuclear) !important; animation: breathe 3s infinite ease-in-out; }
-        @keyframes breathe {
-            0%, 100% { text-shadow: 0 0 10px #FFEA00; }
-            50% { text-shadow: 0 0 60px #FFEA00, 0 0 100px #FFEA00; }
+        /* --- THE 3D SCROLL STAGE --- */
+        .viewport-3d {
+            position: relative;
+            height: 1200vh; /* Massive scroll for 3D flight duration */
+            width: 100vw;
         }
 
-        .glass-card p {
-            font-size: clamp(1.1rem, 2vw, 1.8rem);
-            line-height: 2.2;
-            color: #ccc;
-            margin-bottom: 2rem;
-            font-weight: 300;
+        .sticky-scene {
+            position: sticky;
+            top: 0;
+            height: 100vh;
+            width: 100vw;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            background: radial-gradient(circle at center, #080808 0%, #000 100%);
+        }
+
+        /* --- THE FLY-THROUGH OBJECTS --- */
+        .fly-layer {
+            position: absolute;
+            width: 100vw;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transform-style: preserve-3d;
+            will-change: transform, opacity;
+            text-align: center;
+        }
+
+        /* Diagram Graphics */
+        .diagram-svg {
+            width: 80%;
+            height: 80%;
+        }
+
+        /* Text Gates */
+        .text-gate {
+            max-width: 900px;
+            padding: 60px;
+            background: var(--glass);
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(0, 230, 118, 0.2);
+            box-shadow: 0 0 50px rgba(0,0,0,0.9);
+        }
+
+        .text-gate h2 {
+            font-family: 'Orbitron';
+            font-size: 3.5rem;
+            color: var(--bambu);
+            margin-bottom: 30px;
+            text-shadow: 0 0 30px var(--bambu);
+        }
+
+        .text-gate p {
+            font-size: 1.6rem;
+            line-height: 1.8;
+            color: #eee;
+            margin-bottom: 1.5rem;
+        }
+
+        .nuke-glow {
+            color: var(--nuclear) !important;
+            text-shadow: 0 0 40px var(--nuclear), 0 0 80px var(--nuclear);
         }
 
         .highlight { color: var(--electric); font-weight: 900; }
 
         footer {
-            padding: 100px; width: 100%; text-align: center;
-            border-top: 1px solid #111; font-family: 'Orbitron';
-            letter-spacing: 15px; color: #333;
+            position: relative;
+            z-index: 2000;
+            padding: 100px;
+            text-align: center;
+            background: #000;
+            font-family: 'Orbitron';
+            letter-spacing: 10px;
+            color: #333;
         }
     </style>
 </head>
 <body>
 
-    <nav class="nav-hud">Sanicon Valley // Core Interface v.2.0.6</nav>
+    <div class="hud-ui"></div>
+    <nav class="nav-center">Sanicon Valley // Interplanetary Core v.3.0</nav>
 
-    <section class="hero">
-        <p style="letter-spacing: 20px; color: var(--electric); font-weight: 900;">EPOCH_01 // UPLINK</p>
-        <h1>SANICON VALLEY</h1>
-        <p style="letter-spacing: 12px; color: #666;">THE INTERPLANETARY FUTURE CITY</p>
-    </section>
+    <div class="viewport-3d">
+        <div class="sticky-scene" id="masterScene">
 
-    <!-- MATRIX ZOOM ENGINE -->
-    <div class="scroll-stage" id="mainZoom">
-        <div class="sticky-box">
-            <svg id="visualMap" class="hud-diagram" viewBox="0 0 1200 800" xmlns="http://www.w3.org">
-                <rect width="1200" height="800" fill="#000" />
-                <!-- Concentric Hud Elements -->
-                <circle cx="600" cy="400" r="380" fill="none" stroke="#111" stroke-width="1" />
-                <circle cx="600" cy="400" r="300" fill="none" stroke="var(--electric)" stroke-width="2" stroke-dasharray="10,20" opacity="0.4" />
-                <circle cx="600" cy="400" r="120" fill="none" stroke="var(--bambu)" stroke-width="8" opacity="0.8" />
-                <text x="600" y="415" fill="white" font-family="Orbitron" font-size="40" text-anchor="middle" style="letter-spacing:10px">CORE</text>
-                <!-- Energy Nodes -->
-                <circle cx="150" cy="150" r="30" fill="var(--nuclear)">
-                    <animate attributeName="opacity" values="0.1;1;0.1" dur="3s" repeatCount="indefinite" />
-                </circle>
-            </svg>
+            <!-- LAYER 0: HERO -->
+            <div class="fly-layer" id="layer0">
+                <div style="transform: translateZ(0px)">
+                    <p style="letter-spacing: 20px; color: var(--electric); margin-bottom: 20px;">INITIATING UPLINK</p>
+                    <h1 style="font-family:'Orbitron'; font-size: 10vw; background: linear-gradient(to bottom, #fff, var(--bambu)); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">SANICON VALLEY</h1>
+                </div>
+            </div>
+
+            <!-- LAYER 1: CITY DIAGRAM -->
+            <div class="fly-layer" id="layer1" style="opacity: 0;">
+                <svg class="diagram-svg" viewBox="0 0 1000 1000">
+                    <circle cx="500" cy="500" r="450" fill="none" stroke="var(--electric)" stroke-width="2" stroke-dasharray="20,20" />
+                    <circle cx="500" cy="500" r="200" fill="none" stroke="var(--bambu)" stroke-width="10" />
+                    <text x="500" y="515" fill="white" font-family="Orbitron" font-size="40" text-anchor="middle">CORE_MATRIX</text>
+                </svg>
+            </div>
+
+            <!-- LAYER 2: TEXT BLOCK 1 -->
+            <div class="fly-layer" id="layer2" style="opacity: 0;">
+                <div class="text-gate">
+                    <h2>I. THE MASTERPLAN</h2>
+                    <p>Welcome to <b>Sanicon Valley</b>, the one and only interplanetary future city, that lies on the great city of San Jose, far more advanced than many other cities in the world. Our city blends advanced technology, with nature, and repurposing waste for the greater good.</p>
+                    <p>Sanicon Valley is home to more than 1,000,000 residents, as it is the hub of social, economic, and technological advancement, with the forward thinking system of urban planning, and repurposing waste. We fix the major problem which has never been solved for decades in San Jose: <span class="highlight">the farm to table system.</span></p>
+                </div>
+            </div>
+
+            <!-- LAYER 3: FARM DIAGRAM -->
+            <div class="fly-layer" id="layer3" style="opacity: 0;">
+                <svg class="diagram-svg" viewBox="0 0 1000 1000">
+                    <rect x="300" y="100" width="400" height="60" fill="var(--bambu)" opacity="0.4" />
+                    <rect x="300" y="300" width="400" height="60" fill="var(--bambu)" opacity="0.7" />
+                    <rect x="300" y="500" width="400" height="60" fill="var(--bambu)" />
+                    <path d="M200 100 L200 800 L300 800" stroke="var(--electric)" stroke-width="20" fill="none" />
+                    <text x="500" y="700" fill="var(--bambu)" font-family="Orbitron" font-size="30" text-anchor="middle">BIO_RECLAMATION_GRID</text>
+                </svg>
+            </div>
+
+            <!-- LAYER 4: TEXT BLOCK 2 -->
+            <div class="fly-layer" id="layer4" style="opacity: 0;">
+                <div class="text-gate">
+                    <h2>II. BIO-RECLAMATION</h2>
+                    <p>There are many problems in San Jose. A major problem is the extreme water shortage in San Jose. Sanicon Valley not only fixes this problem, but also uses this problem to fix another major problem which is having enough water to keep the plants healthy. We will <span class="highlight">repurpose shower water</span> which can be used to water the plants.</p>
+                    <p>Also, every house has a vertical farm in their backyard. This makes sure that everyone has a farm and a grocery store for agriculture in their own backyard. Whenever there is a surplus of fruits or vegetables in a house, then the app will send a notification that there is a surplus. This builds a strong community, which San Jose currently lacks.</p>
+                </div>
+            </div>
+
+            <!-- LAYER 5: TEXT BLOCK 3 -->
+            <div class="fly-layer" id="layer5" style="opacity: 0;">
+                <div class="text-gate">
+                    <h2 class="nuke-glow">III. NUCLEAR & ZERO WASTE</h2>
+                    <p>Our city has little to no carbon footprint. We trap carbon dioxide and use it for various different purposes, from fizz drinks to plants using it. The reason that this is an interplanetary solution is because the carbon dioxide can be used for oxygen conversion.</p>
+                    <p>One energy solution which makes this city interplanetary is <span class="highlight">nuclear energy</span>. Two plants are enough to power the entire Sanicon Valley. This will be the main source of energy, as AI will be heavily used and it needs a lot of energy. Fruit peels, especially oranges, can be used as an organic pesticide.</p>
+                </div>
+            </div>
+
+            <!-- LAYER 6: TEXT BLOCK 4 -->
+            <div class="fly-layer" id="layer6" style="opacity: 0;">
+                <div class="text-gate">
+                    <h2>IV. ROBOTICS & ZONING</h2>
+                    <p>Each house features one robot for the backyard. Another robot is optional and will be for helping with household tasks and communicating with other bots. There is no sewage system, as toilets and shower drains are connected to a pipe which later goes to individual plants.</p>
+                    <p>This city has a very strict zoning law. New houses can have a maximum area of 3,000 square feet. Hospitals will be massive, with a maximum area of 100,000 square feet and 10 floors. Just 5 of these hospitals is enough to handle the whole Sanicon Valley at once.</p>
+                </div>
+            </div>
+
+            <!-- LAYER 7: TEXT BLOCK 5 -->
+            <div class="fly-layer" id="layer7" style="opacity: 0;">
+                <div class="text-gate">
+                    <h2>V. SOCIAL COMMERCE</h2>
+                    <p>Offices will be placed in a perfect way for socialization. They will be close by so people can roam through different offices and see what is going on. These companies will be placed on the outline of a rectangle meaning that the center is a square where there are many restaurants and space for people to socialize.</p>
+                    <p>With all of this, Sanicon Valley is the hub of technological innovation, and a global blueprint for the interplanetary future.</p>
+                </div>
+            </div>
+
         </div>
     </div>
 
-    <main class="manifesto-flow">
-        <!-- I. INTRO -->
-        <div class="glass-card">
-            <h2>I. THE MASTERPLAN</h2>
-            <p>Welcome to <b>Sanicon Valley</b>, the one and only interplanetary future city, that lies on the great city of San Jose, far more advanced than many other cities in the world. Our city blends advanced technology, with nature, and repurposing waste for the greater good.</p>
-            <p>Sanicon Valley is home to more than 1,000,000 residents, as it is the hub of social, economic, and technological advancement, with the forward thinking system of urban planning, and repurposing waste. We fix the major problems which have never been solved for decades in San Jose, starting with a revolutionary <span class="highlight">farm-to-table</span> system.</p>
-        </div>
-
-        <!-- II. WATER & FARMS -->
-        <div class="glass-card">
-            <h2>II. BIO-RECLAMATION</h2>
-            <p>A major problem is the extreme water shortage in San Jose. Sanicon Valley not only fixes this problem, but also uses it to keep plants healthy. We will <span class="highlight">repurpose shower water</span> which can be used to water the plants. Also, every house has a <b>vertical farm in their backyard</b>.</p>
-            <p>Everyone will have an app in which they can order a robot which will give the amount and kind of fruit or vegetable upon order. This ensures no food is wasted and builds a strong community, which San Jose currently lacks.</p>
-        </div>
-
-        <!-- III. ENERGY -->
-        <div class="glass-card">
-            <h2 class="nuke-header">III. NUCLEAR ENERGY GRID</h2>
-            <p>Our city has little to no carbon footprint. We trap carbon dioxide for various different purposes, from fizz drinks to oxygen conversion. One energy solution which makes this city interplanetary is <span class="highlight">nuclear energy</span>. Two plants are enough to power the entire Sanicon Valley.</p>
-            <p>This will be the main source of energy, as AI will be heavily used and it needs a lot of energy. We complement this with solar energy for houses and electric vehicle charging stations, and wind turbines in high-velocity areas.</p>
-        </div>
-
-        <!-- IV. ZONING & ROBOTICS -->
-        <div class="glass-card">
-            <h2>IV. RESIDENTIAL ROBOTICS</h2>
-            <p>Every house will have one robot for the backyard. Another robot is optional and will be for helping with household tasks. Just by sitting, you can use the bot to instantly talk to anyone you want. It is like having a simulated visitor.</p>
-            <p>This city has strict zoning laws. New houses have a maximum area of 3,000 square feet excluding the backyard. Hospitals will be massive, with a maximum area of 100,000 square feet. Just 5 of these hospitals is enough to handle the whole Sanicon Valley at once.</p>
-        </div>
-
-        <!-- V. SOCIAL COMMERCE -->
-        <div class="glass-card">
-            <h2>V. SOCIAL COMMERCE</h2>
-            <p>Offices will be placed in a perfect way for socialization. They will be close by so people can roam and combine ideas. These companies will be placed such that it is on the outline of a rectangle meaning the center is a square where there are many restaurants and engaging activities.</p>
-            <p>With all of this, Sanicon Valley is the hub of technological innovation and a global blueprint for the future.</p>
-        </div>
-    </main>
-
-    <footer>CORE_LOGIC // INTERPLANETARY_V2 // SANICON VALLEY</footer>
+    <footer>SANICON VALLEY // CORE DISPATCH // END OF FILE</footer>
 
     <script>
-        const vMap = document.getElementById('visualMap');
-        const zStage = document.getElementById('mainZoom');
-        const cards = document.querySelectorAll('.glass-card');
+        const masterScene = document.getElementById('masterScene');
+        const layers = [
+            document.getElementById('layer0'),
+            document.getElementById('layer1'),
+            document.getElementById('layer2'),
+            document.getElementById('layer3'),
+            document.getElementById('layer4'),
+            document.getElementById('layer5'),
+            document.getElementById('layer6'),
+            document.getElementById('layer7')
+        ];
 
         window.addEventListener('scroll', () => {
-            const zRect = zStage.getBoundingClientRect();
-            const zProg = -zRect.top / (zRect.height - window.innerHeight);
+            const scrollY = window.scrollY;
+            const viewportH = window.innerHeight;
             
-            if (zProg >= 0 && zProg <= 1) {
-                // Advanced 3D Warp + Zoom
-                const scale = 1 + (zProg * 14);
-                const rotate = zProg * 20; // Slight tilt
-                vMap.style.transform = `scale(${scale}) rotateX(${rotate}deg)`;
-                vMap.style.opacity = zProg > 0.85 ? 1 - (zProg - 0.85) * 6.6 : 1;
-            }
-
-            cards.forEach(c => {
-                if (c.getBoundingClientRect().top < window.innerHeight * 0.85) {
-                    c.classList.add('active');
+            layers.forEach((layer, index) => {
+                // Calculate position for each gate
+                // Each "gate" is spaced out by 1500px in scroll depth
+                const start = index * 1500;
+                const end = start + 1500;
+                
+                if (scrollY >= start && scrollY <= end) {
+                    const progress = (scrollY - start) / 1500;
+                    
+                    // Fly-through logic: translate from 0 to 2000px on Z axis
+                    const zPos = progress * 3000; 
+                    layer.style.transform = `translateZ(${zPos}px)`;
+                    
+                    // Fade in at start, fade out as you pass through
+                    if (progress < 0.2) {
+                        layer.style.opacity = progress * 5;
+                    } else if (progress > 0.7) {
+                        layer.style.opacity = 1 - (progress - 0.7) * 3.33;
+                    } else {
+                        layer.style.opacity = 1;
+                    }
+                    
+                    layer.style.display = "flex";
+                } else {
+                    layer.style.opacity = 0;
+                    layer.style.display = "none";
                 }
             });
         });
