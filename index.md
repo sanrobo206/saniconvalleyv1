@@ -27,11 +27,11 @@ title: Sanicon Valley - Interplanetary Future City
     position: absolute; width: 85%; max-width: 1200px; text-align: center; 
     opacity: 0; transform: scale(0.01); will-change: transform, opacity; 
     padding: 60px; border-radius: 40px; 
-    background: rgba(15, 23, 42, 0.2); 
-    backdrop-filter: blur(20px) saturate(180%);
-    -webkit-backdrop-filter: blur(20px) saturate(180%);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+    background: rgba(15, 23, 42, 0.4); 
+    backdrop-filter: blur(30px) saturate(180%);
+    -webkit-backdrop-filter: blur(30px) saturate(180%);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.7);
   }
 
   .big { font-family: 'Orbitron', sans-serif; font-size: clamp(2rem, 5vw, 6rem); line-height: 1; text-transform: uppercase; margin-bottom: 30px; font-weight: 900; letter-spacing: -2px; }
@@ -40,13 +40,13 @@ title: Sanicon Valley - Interplanetary Future City
   .ab { color: var(--b); text-shadow: 0 0 30px var(--b); }
   .ag { color: var(--g); text-shadow: 0 0 30px var(--g); }
 
-  canvas#space { position: fixed; inset: 0; z-index: -1; }
+  #bg-canvas { position: fixed; inset: 0; z-index: -1; }
   footer { position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%); font-family: 'Orbitron'; font-size: 0.7rem; letter-spacing: 5px; opacity: 0.5; z-index: 10002; color: var(--b); }
 </style>
 
 <div id="h"><div id="p"></div></div>
-<div id="u">STARS SYNCING: 0%</div>
-<canvas id="space"></canvas>
+<div id="u">NEURAL LINK: 0%</div>
+<canvas id="bg-canvas"></canvas>
 <footer>COPYRIGHT SANATAN SINHA</footer>
 
 <div class="v">
@@ -105,26 +105,16 @@ title: Sanicon Valley - Interplanetary Future City
 const progress = document.getElementById('p');
 const syncText = document.getElementById('u');
 const modules = document.querySelectorAll('.z');
-const canvas = document.getElementById('space');
+const canvas = document.getElementById('bg-canvas');
 const ctx = canvas.getContext('2d');
 
-let w, h, stars = [];
+let w, h;
 
 function init() {
   w = window.innerWidth;
   h = window.innerHeight;
   canvas.width = w;
   canvas.height = h;
-  stars = [];
-  // Generate 800 stars for a dense space feel
-  for(let i=0; i<800; i++) {
-    stars.push({
-      x: Math.random() * w - w/2,
-      y: Math.random() * h - h/2,
-      z: Math.random() * w,
-      px: 0, py: 0
-    });
-  }
 }
 
 function update() {
@@ -152,24 +142,19 @@ function update() {
     }
   });
 
-  // SPACE RENDERING
-  ctx.fillStyle = '#020617';
-  ctx.fillRect(0,0,w,h);
-
-  // Dynamic Nebula Gradient based on Scroll
-  const hue = 200 + (percent * 0.5);
+  // Background Clean Nebula (No Stars)
+  const hue = 210 + (percent * 0.4);
   const grad = ctx.createRadialGradient(w/2, h/2, 0, w/2, h/2, w);
-  grad.addColorStop(0, `hsla(${hue}, 80%, 10%, 0.4)`);
-  grad.addColorStop(1, 'transparent');
+  grad.addColorStop(0, `hsla(${hue}, 80%, 12%, 1)`);
+  grad.addColorStop(0.5, `hsla(${hue + 20}, 70%, 5%, 1)`);
+  grad.addColorStop(1, '#020617');
+  
   ctx.fillStyle = grad;
   ctx.fillRect(0,0,w,h);
 
-  // Star Logic
-  stars.forEach(s => {
-    // Warp speed increases as you scroll
-    const speed = 6 + (percent * 0.4);
-    s.z -= speed;
-    if(s.z <= 0) s.z = w;
+  requestAnimationFrame(update);
+}
 
-    const k = 128.0 / s.z;
-    const px = s
+window.addEventListener('resize', init);
+init(); update();
+</script>
